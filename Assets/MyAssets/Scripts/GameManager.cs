@@ -1,0 +1,103 @@
+using TMPro;
+using UnityEngine;
+
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance { get; private set; }
+
+
+    [Header("Economic & Level Settings")]
+    [SerializeField] int money = 0;
+    [SerializeField] int target = 650;
+    [SerializeField] int level = 1;
+    [SerializeField] float timeRemaining = 60f;
+
+    [Header("UI Elements")]
+    [SerializeField] TMP_Text moneyText;
+    [SerializeField] TMP_Text targetText;
+    [SerializeField] TMP_Text levelText;
+    [SerializeField] TMP_Text timeText;
+
+    bool isGameOver = false;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void Start()
+    {
+        UpdateVisualHUD();
+    }
+
+    void Update()
+    {
+        if (isGameOver) return;
+
+        if (timeRemaining > 0)
+        {
+            timeRemaining -= Time.deltaTime;
+
+            int secondsDisplay = (int)Mathf.Ceil(timeRemaining);
+            timeText.text = $"{secondsDisplay}";
+        }
+        else
+        {
+            timeRemaining = 0;
+            timeText.text = "0";
+            CheckLevelEndCondition();
+        }
+    }
+
+    public void AddMoney(int amount)
+    {
+        if (isGameOver) return;
+        money += (amount > 0) ? amount : 1;
+        UpdateVisualHUD();
+    }
+
+    void CheckLevelEndCondition()
+    {
+        isGameOver = true;
+
+        if (money >= target)
+        {
+            NextLevel();
+        }
+        else
+        {
+            TriggerGameOver();
+        }
+    }
+
+    void NextLevel()
+    {
+        level++;
+        target += 650 + (level * 100);
+        timeRemaining = 60f;
+        isGameOver = false;
+        
+        UpdateVisualHUD();
+        // TO DO: Add level transition effects or logic here
+    }
+
+    void TriggerGameOver()
+    {
+        
+    }
+
+    void UpdateVisualHUD()
+    {
+        if (moneyText != null) moneyText.text = $"{money}";
+        if (targetText != null) targetText.text = $"{target}";
+        if (levelText != null) levelText.text = $"{level}";
+        if (timeText != null) timeText.text = Mathf.CeilToInt(timeRemaining).ToString();
+    }
+}
