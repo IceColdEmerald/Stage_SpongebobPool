@@ -1,0 +1,102 @@
+.root {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Background */
+.background {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    /* Replace with your ocean background sprite */
+    background-image: url("Assets/Textures/background.png");
+    background-size: cover;
+}
+
+/* Main layout container */
+.container {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Title sign */
+.title-sign {
+    width: 420px;
+    height: 160px;
+
+    background-image: url("Assets/Textures/title_sign.png");
+    background-size: contain;
+
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.title-text {
+    unity-font-style: bold;
+    font-size: 36px;
+    color: #f6d365;
+    -unity-text-align: middle-center;
+}
+
+/* Character area */
+.character-area {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* SpongeBob placeholder */
+.character {
+    width: 180px;
+    height: 220px;
+
+    background-image: url("Assets/Textures/spongebob.png");
+    background-size: contain;
+}
+
+/* Balloon */
+.balloon {
+    width: 120px;
+    height: 120px;
+
+    margin-left: 20px;
+
+    background-image: url("Assets/Textures/balloon.png");
+    background-size: contain;
+}
+
+/* Buttons container */
+.buttons {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Button style */
+.menu-button {
+    width: 220px;
+    height: 50px;
+
+    font-size: 20px;
+    color: white;
+
+    background-color: #7a4b1e;
+    border-radius: 10px;
+
+    justify-content: center;
+    align-items: center;
+}
+
+/* Secondary button */
+.menu-button.secondary {
+    background-color: #5c3816;
+}

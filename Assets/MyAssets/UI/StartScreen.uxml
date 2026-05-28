@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/MyAssets/UI/StartScreen.uss?fileID=7433441132597879392&amp;guid=c7ce5e70121c979418864f1f6a15ac42&amp;type=3#StartScreen"/>
+    <ui:VisualElement class="root">
+        <ui:VisualElement class="background" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/backgroundStartScreen.png?fileID=2800000&amp;guid=61277b722bae13d4bbc83e5442ac9669&amp;type=3#backgroundStartScreen&quot;);"/>
+        <ui:VisualElement class="container">
+            <ui:VisualElement class="title-sign" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/BillBoard.png?fileID=2800000&amp;guid=de8abe419186e8e4d949cde82ff5fe17&amp;type=3#BillBoard&quot;); width: 30%; height: 30%;">
+                <ui:Label text="SPONGEBOB &#10;GOLD &#10;MINER" enable-rich-text="false" class="title-text" style="-unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;);"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="character-area">
+                <ui:VisualElement class="balloon" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/Balloon.png?fileID=2800000&amp;guid=b5b2f10b0bf23784ebaa08426b49a69c&amp;type=3#Balloon&quot;); height: 406px; width: 408px;"/>
+                <ui:VisualElement class="character"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="buttons">
+                <ui:Button text="START GAME" class="menu-button" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/buttonBackground.png?fileID=2800000&amp;guid=7257d4284a4519f4397098ec29579aeb&amp;type=3#buttonBackground&quot;); -unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;);"/>
+                <ui:Button text="HIGH SCORES" name="Button" class="menu-button secondary" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/buttonBackground.png?fileID=2800000&amp;guid=7257d4284a4519f4397098ec29579aeb&amp;type=3#buttonBackground&quot;); -unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;);"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
