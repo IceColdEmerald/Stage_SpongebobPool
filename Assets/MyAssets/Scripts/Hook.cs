@@ -146,6 +146,19 @@ public class Hook : MonoBehaviour
     {
         if (grabbedObject != null)
         {
+            if (grabbedObject.TryGetComponent(out GrabableObject liveItem))
+            {
+                float levelScale = GameManager.Instance.CurrentLevelMultiplier;
+                float rockBookBonus = GameManager.Instance.RockCollectorBonus;
+
+                int finalPayout = liveItem.DeliverValue(levelScale, 0f);
+                GameManager.Instance.AddMoney(finalPayout);
+            }
+            else
+            {
+                GameManager.Instance.AddMoney(1);
+            }
+
             Destroy(grabbedObject);
         }
         

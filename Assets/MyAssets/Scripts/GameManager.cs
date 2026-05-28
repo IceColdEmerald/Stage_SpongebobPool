@@ -5,7 +5,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-
     [Header("Economic & Level Settings")]
     [SerializeField] int money = 0;
     [SerializeField] int target = 650;
@@ -17,6 +16,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text targetText;
     [SerializeField] TMP_Text levelText;
     [SerializeField] TMP_Text timeText;
+
+    [Header("Progression Multipliers")]
+    [SerializeField] float currentLevelMultiplier = 1f;
+    [SerializeField] float rockBookBonus = 0f;
+
+    public float CurrentLevelMultiplier => currentLevelMultiplier;
+    public float RockCollectorBonus => rockBookBonus;
 
     bool isGameOver = false;
 
@@ -81,11 +87,12 @@ public class GameManager : MonoBehaviour
     {
         level++;
         target += 650 + (level * 100);
+
+        currentLevelMultiplier += 0.05f;
+
         timeRemaining = 60f;
         isGameOver = false;
-        
         UpdateVisualHUD();
-        // TO DO: Add level transition effects or logic here
     }
 
     void TriggerGameOver()

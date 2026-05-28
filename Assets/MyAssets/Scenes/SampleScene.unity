@@ -156,7 +156,7 @@ RectTransform:
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &52207471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
   m_Padding:
-    m_Left: 0
+    m_Left: -300
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
@@ -490,7 +490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
   m_Padding:
-    m_Left: 0
+    m_Left: -300
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 476541578}
   - component: {fileID: 476541577}
   - component: {fileID: 476541576}
+  - component: {fileID: 476541579}
   m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
@@ -641,6 +642,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1191124829}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &476541579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476541575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78de34fc5136e94ba50dbdfd4d9bded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GrabableObject
+  itemData: {fileID: 0}
 --- !u!1 &485022779
 GameObject:
   m_ObjectHideFlags: 0
@@ -1229,6 +1243,7 @@ GameObject:
   - component: {fileID: 694269405}
   - component: {fileID: 694269404}
   - component: {fileID: 694269403}
+  - component: {fileID: 694269406}
   m_Layer: 7
   m_Name: Square (1)
   m_TagString: Untagged
@@ -1356,6 +1371,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1191124829}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &694269406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694269402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78de34fc5136e94ba50dbdfd4d9bded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GrabableObject
+  itemData: {fileID: 0}
 --- !u!1 &714358146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1447,7 +1475,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1749,6 +1777,8 @@ MonoBehaviour:
   targetText: {fileID: 1622395418}
   levelText: {fileID: 1910910632}
   timeText: {fileID: 714358148}
+  currentLevelMultiplier: 1
+  rockBookBonus: 0
 --- !u!4 &862207495
 Transform:
   m_ObjectHideFlags: 0
@@ -1934,7 +1964,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2407,6 +2437,7 @@ GameObject:
   - component: {fileID: 1707485974}
   - component: {fileID: 1707485973}
   - component: {fileID: 1707485972}
+  - component: {fileID: 1707485975}
   m_Layer: 7
   m_Name: Square (3)
   m_TagString: Untagged
@@ -2534,6 +2565,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1191124829}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1707485975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707485971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78de34fc5136e94ba50dbdfd4d9bded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GrabableObject
+  itemData: {fileID: 0}
 --- !u!1 &1793190516
 GameObject:
   m_ObjectHideFlags: 0
@@ -2545,6 +2589,7 @@ GameObject:
   - component: {fileID: 1793190519}
   - component: {fileID: 1793190518}
   - component: {fileID: 1793190517}
+  - component: {fileID: 1793190520}
   m_Layer: 7
   m_Name: Square (2)
   m_TagString: Untagged
@@ -2672,6 +2717,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1191124829}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1793190520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793190516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78de34fc5136e94ba50dbdfd4d9bded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GrabableObject
+  itemData: {fileID: 0}
 --- !u!1 &1833836970
 GameObject:
   m_ObjectHideFlags: 0
@@ -2772,7 +2830,7 @@ RectTransform:
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1910910632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2827,7 +2885,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -3101,7 +3159,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
