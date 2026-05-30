@@ -13,9 +13,10 @@
     top: 0;
     bottom: 0;
 
-    /* Replace with your ocean background sprite */
     background-image: url("Assets/Textures/background.png");
     background-size: cover;
+    flex-direction: row;
+    picking-mode: ignore;
 }
 
 /* Main layout container */
@@ -24,6 +25,7 @@
     height: 100%;
     justify-content: center;
     align-items: center;
+    picking-mode: position;
 }
 
 /* Title sign */
@@ -38,6 +40,7 @@
     align-items: center;
 
     margin-bottom: 20px;
+    picking-mode: ignore;
 }
 
 .title-text {
@@ -52,9 +55,10 @@
     flex-direction: row;
     align-items: center;
     margin-bottom: 30px;
+    picking-mode: ignore;
 }
 
-/* SpongeBob placeholder */
+/* SpongeBob and patric placeholder */
 .character {
     width: 180px;
     height: 220px;
@@ -72,6 +76,7 @@
 
     background-image: url("Assets/Textures/balloon.png");
     background-size: contain;
+    picking-mode: ignore;
 }
 
 /* Buttons container */
@@ -79,6 +84,7 @@
     flex-direction: column;
     gap: 12px;
     align-items: center;
+    picking-mode: position;
 }
 
 /* Button style */
@@ -94,9 +100,39 @@
 
     justify-content: center;
     align-items: center;
+    picking-mode: position;
+}
+
+.menu-button:hover {
+    scale: 1.05 1.05;
+    border: 1px solid rgba(192, 105, 23, 0.34)
 }
 
 /* Secondary button */
 .menu-button.secondary {
     background-color: #5c3816;
+}
+
+.bubble-transition {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 120, 180, 0.35);
+    display: none;
+    opacity: 0;
+}
+
+.bubble-transition.active {
+    opacity: 1;
+    display: flex;
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.45);
+    border-width: 3px;
+    border-color: rgba(255, 255, 255, 0.8);
 }

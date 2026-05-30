@@ -1,19 +1,24 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/MyAssets/UI/StartScreen.uss?fileID=7433441132597879392&amp;guid=c7ce5e70121c979418864f1f6a15ac42&amp;type=3#StartScreen"/>
-    <ui:VisualElement class="root">
-        <ui:VisualElement class="background" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/backgroundStartScreen.png?fileID=2800000&amp;guid=61277b722bae13d4bbc83e5442ac9669&amp;type=3#backgroundStartScreen&quot;);"/>
-        <ui:VisualElement class="container">
-            <ui:VisualElement class="title-sign" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/BillBoard.png?fileID=2800000&amp;guid=de8abe419186e8e4d949cde82ff5fe17&amp;type=3#BillBoard&quot;); width: 30%; height: 30%;">
-                <ui:Label text="SPONGEBOB &#10;GOLD &#10;MINER" enable-rich-text="false" class="title-text" style="-unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;);"/>
+    <ui:VisualElement picking-mode="Ignore" class="root" style="flex-direction: row;">
+        <ui:VisualElement picking-mode="Ignore" class="background" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/backgroundStartScreen.png?fileID=2800000&amp;guid=61277b722bae13d4bbc83e5442ac9669&amp;type=3#backgroundStartScreen&quot;);"/>
+        <ui:VisualElement class="character-area" style="flex-direction: column; left: 15%;">
+            <ui:VisualElement class="balloon" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/Balloon.png?fileID=2800000&amp;guid=b5b2f10b0bf23784ebaa08426b49a69c&amp;type=3#Balloon&quot;); height: 600px; width: 600px; position: absolute; top: -63%; left: 12%;"/>
+            <ui:VisualElement class="character" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/Characters.png?fileID=-1960546628078278901&amp;guid=941198d197967194ba74db5d8b668d14&amp;type=3#Characters_1&quot;); width: 360px; height: 440px;"/>
+        </ui:VisualElement>
+        <ui:VisualElement picking-mode="Ignore" class="container">
+            <ui:VisualElement name="VisualElement" class="title-sign" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/BillBoard.png?fileID=2800000&amp;guid=de8abe419186e8e4d949cde82ff5fe17&amp;type=3#BillBoard&quot;); width: 35%; height: 30%; margin-bottom: 15%; top: 12%; position: absolute; font-size: 14px;">
+                <ui:Label text="SPONGEBOB &#10;GOLD &#10;MINER" enable-rich-text="false" class="title-text" style="-unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;); font-size: 36px;"/>
             </ui:VisualElement>
-            <ui:VisualElement class="character-area">
-                <ui:VisualElement class="balloon" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/Balloon.png?fileID=2800000&amp;guid=b5b2f10b0bf23784ebaa08426b49a69c&amp;type=3#Balloon&quot;); height: 406px; width: 408px;"/>
-                <ui:VisualElement class="character"/>
-            </ui:VisualElement>
-            <ui:VisualElement class="buttons">
-                <ui:Button text="START GAME" class="menu-button" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/buttonBackground.png?fileID=2800000&amp;guid=7257d4284a4519f4397098ec29579aeb&amp;type=3#buttonBackground&quot;); -unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;);"/>
-                <ui:Button text="HIGH SCORES" name="Button" class="menu-button secondary" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/buttonBackground.png?fileID=2800000&amp;guid=7257d4284a4519f4397098ec29579aeb&amp;type=3#buttonBackground&quot;); -unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;);"/>
+            <ui:VisualElement name="VisualElement" picking-mode="Ignore" class="buttons" style="position: absolute; top: 55%;">
+                <ui:Button text="START GAME" name="StartButton" class="menu-button" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/buttonBackground.png?fileID=2800000&amp;guid=7257d4284a4519f4397098ec29579aeb&amp;type=3#buttonBackground&quot;); -unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;); margin-bottom: 20%; width: 120%; height: 70%; font-size: 30px;"/>
+                <ui:Button text="HIGH SCORES" name="HighScoresButton" class="menu-button secondary" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/buttonBackground.png?fileID=2800000&amp;guid=7257d4284a4519f4397098ec29579aeb&amp;type=3#buttonBackground&quot;); -unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;); width: 120%; height: 70%; -unity-font-style: normal; font-size: 30px;"/>
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement class="character-area" style="flex-direction: column; right: 15%; position: relative;">
+            <ui:VisualElement class="balloon" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/Balloon.png?fileID=2800000&amp;guid=b5b2f10b0bf23784ebaa08426b49a69c&amp;type=3#Balloon&quot;); height: 600px; width: 600px; position: absolute; top: -76%; right: -143%;"/>
+            <ui:VisualElement class="character" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/Characters.png?fileID=3542127132570728493&amp;guid=941198d197967194ba74db5d8b668d14&amp;type=3#Characters_0&quot;); width: 360px; height: 440px;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="BubbleTransition" class="bubble-transition"/>
     </ui:VisualElement>
 </ui:UXML>
