@@ -83,12 +83,22 @@ public class Hook : MonoBehaviour
 
     void HandleGrabbing()
     {
+        if (grabbedObject == null)
+        {
+            StartRetracting(1f);
+            return;
+        }
+
         if (grabbedObject.TryGetComponent(out Collider2D grabbedCollider))
         {
             grabbedCollider.enabled = false;
         }
 
-        float weightModifier = 2.5f;
+        float weightModifier = 1f;
+        if (grabbedObject.TryGetComponent(out GrabableObject grabable))
+        {
+            weightModifier = grabable.WeightModifier;
+        }
         StartRetracting(weightModifier);
     }
 
@@ -138,7 +148,8 @@ public class Hook : MonoBehaviour
 
     void StartRetracting(float weightMultiplier)
     {
-        currentRetractSpeed = baseRetractSpeed / weightMultiplier;
+        float safeWeight = Mathf.Max(0.1f, weightMultiplier);
+        currentRetractSpeed = baseRetractSpeed / safeWeight;
         currentState = HookState.Retracting;
     }
 
@@ -148,10 +159,9 @@ public class Hook : MonoBehaviour
         {
             if (grabbedObject.TryGetComponent(out GrabableObject liveItem))
             {
-                float levelScale = GameManager.Instance.CurrentLevelMultiplier;
                 float rockBookBonus = GameManager.Instance.RockCollectorBonus;
 
-                int finalPayout = liveItem.DeliverValue(levelScale, 0f);
+                int finalPayout = liveItem.DeliverValue(rockBookBonus);
                 GameManager.Instance.AddMoney(finalPayout);
             }
             else
