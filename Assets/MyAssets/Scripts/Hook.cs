@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class Hook : MonoBehaviour
@@ -23,6 +24,9 @@ public class Hook : MonoBehaviour
     [SerializeField] int explosivesCount = 3;
     bool isStrengthActive = false;
 
+    [Header("Visual (Rope)")]
+    [SerializeField] LineRenderer lineRenderer;
+
     Vector2 originalPosition;
     GameObject grabbedObject = null;
     bool isInitialized = false;
@@ -47,11 +51,23 @@ public class Hook : MonoBehaviour
         currentState = HookState.Swinging;
         currentRetractSpeed = baseRetractSpeed;
         grabbedObject = null;
+
+        UpdateRopeVisual();
     }
 
     void Start()
     {
         currentRetractSpeed = baseRetractSpeed;
+
+        if (lineRenderer == null)
+        {
+            lineRenderer = GetComponent<LineRenderer>();
+        }
+
+        if (lineRenderer != null)
+        {
+            lineRenderer.positionCount = 2;
+        }
     }
 
     void Update()
@@ -72,6 +88,17 @@ public class Hook : MonoBehaviour
             case HookState.Retracting:
                 HandleRetracting();
                 break;
+        }
+
+        UpdateRopeVisual();
+    }
+
+    void UpdateRopeVisual()
+    {
+        if (lineRenderer != null)
+        {
+            lineRenderer.SetPosition(0, originalPosition);
+            lineRenderer.SetPosition(1, transform.position);
         }
     }
 
