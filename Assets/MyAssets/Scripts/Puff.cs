@@ -11,6 +11,10 @@ public class Puff : MonoBehaviour
     public void Explode()
     {
         if (hasExploded) return;
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayExplosion();
+
         hasExploded = true;
 
         Collider2D[] casualties = Physics2D.OverlapCircleAll(transform.position, explosionRadius, targetsLayer);
@@ -23,7 +27,7 @@ public class Puff : MonoBehaviour
             {
                 neighbourPuff.Explode();
             }
-            else 
+            else
             {
                 Destroy(casualty.gameObject);
             }

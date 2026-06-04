@@ -44,6 +44,12 @@ public class StartScreenController : MonoBehaviour
         highScoresButton.clicked += OnHighScoresClicked;
     }
 
+    private void Start()
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayStartMenuMusic();
+    }
+
     private void OnDestroy()
     {
         if (startButton != null)
@@ -57,6 +63,12 @@ public class StartScreenController : MonoBehaviour
     {
         if (isLoading)
             return;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClick();
+            AudioManager.Instance.PlayBubbleTransition();
+        }
 
         StartCoroutine(StartGameTransition());
     }
@@ -109,7 +121,7 @@ public class StartScreenController : MonoBehaviour
             float size = Random.Range(minBubbleSize, maxBubbleSize);
 
             float x = Random.Range(0, screenWidth - size);
-            float y = screenHeight + Random.Range(20f, 250f);;
+            float y = screenHeight + Random.Range(20f, 250f);
 
             bubble.style.width = size;
             bubble.style.height = size;

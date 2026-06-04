@@ -10,6 +10,7 @@ public class GrabableObject : MonoBehaviour
 
     public float WeightModifier => customWeight > 0 ? customWeight : (itemData != null ? itemData.WeightModifier : 1f);
     public string ItemName => itemData != null ? itemData.ItemName : "Unknown";
+    public AudioClip GrabSound => itemData != null ? itemData.GrabSound : null;
 
     void Awake()
     {
@@ -27,7 +28,7 @@ public class GrabableObject : MonoBehaviour
     void OnValidate()
     {
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
-        if (itemData == null) InitializeObject();
+        if (itemData != null) InitializeObject();
     }
 
     void InitializeObject()

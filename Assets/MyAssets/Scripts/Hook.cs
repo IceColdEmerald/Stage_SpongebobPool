@@ -1,4 +1,3 @@
-using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class Hook : MonoBehaviour
@@ -52,7 +51,16 @@ public class Hook : MonoBehaviour
         currentRetractSpeed = baseRetractSpeed;
         grabbedObject = null;
 
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.StopHookShoot();
+
         UpdateRopeVisual();
+    }
+
+    void OnDisable()
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.StopHookShoot();
     }
 
     void Start()
@@ -60,14 +68,10 @@ public class Hook : MonoBehaviour
         currentRetractSpeed = baseRetractSpeed;
 
         if (lineRenderer == null)
-        {
             lineRenderer = GetComponent<LineRenderer>();
-        }
 
         if (lineRenderer != null)
-        {
             lineRenderer.positionCount = 2;
-        }
     }
 
     void Update()
@@ -106,6 +110,9 @@ public class Hook : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.DownArrow) && currentState == HookState.Swinging)
         {
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayHookShoot();
+
             currentState = HookState.Extending;
         }
 
@@ -145,16 +152,22 @@ public class Hook : MonoBehaviour
         }
 
         float weightModifier = 1f;
+
         if (grabbedObject.TryGetComponent(out GrabableObject grabable))
         {
             weightModifier = isStrengthActive ? 1f : grabable.WeightModifier;
         }
+
         StartRetracting(weightModifier);
     }
 
     void HandleRetracting()
     {
-        transform.position = Vector2.MoveTowards(transform.position, originalPosition, currentRetractSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(
+            transform.position,
+            originalPosition,
+            currentRetractSpeed * Time.deltaTime
+        );
 
         if (grabbedObject != null)
         {
@@ -172,6 +185,9 @@ public class Hook : MonoBehaviour
     {
         if (grabbedObject == null || explosivesCount <= 0) return;
 
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayExplosion();
+
         explosivesCount--;
         Destroy(grabbedObject);
         grabbedObject = null;
@@ -186,10 +202,13 @@ public class Hook : MonoBehaviour
         {
             puff.Explode();
             StartRetracting(1f);
-            GameManager.Instance.AddMoney(1);
+
+            if (GameManager.Instance != null)
+                GameManager.Instance.AddMoney(1);
+
             return;
         }
-    
+
         if (((1 << collision.gameObject.layer) & borderLayer) != 0)
         {
             StartRetracting(1f);
@@ -197,6 +216,12 @@ public class Hook : MonoBehaviour
         else if (((1 << collision.gameObject.layer) & grabbableLayer) != 0)
         {
             grabbedObject = collision.gameObject;
+
+            if (grabbedObject.TryGetComponent(out GrabableObject grabable))
+            {
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.PlayCustomSFX(grabable.GrabSound);
+            }
 
             if (grabbedObject.TryGetComponent(out PlanktonMovement plankton))
             {
@@ -216,8 +241,14 @@ public class Hook : MonoBehaviour
 
     void ResetHookState()
     {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.StopHookShoot();
+
         if (grabbedObject != null)
         {
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayItemDeliver();
+
             if (grabbedObject.TryGetComponent(out Garry garry))
             {
                 garry.RevealMystery(this);
@@ -230,7 +261,7 @@ public class Hook : MonoBehaviour
 
             Destroy(grabbedObject);
         }
-        
+
         grabbedObject = null;
         currentRetractSpeed = baseRetractSpeed;
         currentState = HookState.Swinging;

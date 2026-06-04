@@ -97,7 +97,7 @@ public class ShopManager : MonoBehaviour
 
     void EnableButton(Button buttonToEnable)
     {
-        if (buttonToEnable == null) return;  
+        if (buttonToEnable == null) return;
         buttonToEnable.gameObject.SetActive(Random.value > 0.5f);
     }
 
@@ -127,6 +127,9 @@ public class ShopManager : MonoBehaviour
     {
         if (GameManager.Instance.CurrentMoney >= itemPrice)
         {
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayPurchase();
+
             GameManager.Instance.SpendMoney(itemPrice);
             madeAnyPurchase = true;
 
@@ -136,6 +139,9 @@ public class ShopManager : MonoBehaviour
         }
         else
         {
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayNoMoney();
+
             Debug.Log($"Not enough money to purchase {itemID}");
         }
     }

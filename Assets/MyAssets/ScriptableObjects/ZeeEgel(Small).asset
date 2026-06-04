@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: ZeeEgel
   itemSprite: {fileID: -7582522387685710772, guid: da414455fe0cc294397d113e371c8bce, type: 3}
+  grabSound: {fileID: 8300000, guid: 832f99c34bb165945afade87ca51143f, type: 3}
   baseValue: 11
   weightModifier: 8

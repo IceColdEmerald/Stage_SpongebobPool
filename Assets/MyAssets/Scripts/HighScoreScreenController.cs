@@ -28,6 +28,12 @@ public class HighScoreScreenController : MonoBehaviour
 
     private bool isLoading;
 
+    private void Start()
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayStartMenuMusic();
+    }
+
     private void Awake()
     {
         if (uiDocument == null)
