@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -17,13 +18,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text levelText;
     [SerializeField] TMP_Text timeText;
 
+    [Header("UI Elements (Shop HUD)")]
+    [SerializeField] TMP_Text storeMoneyText;
+
     [Header("Progression Multipliers")]
     [SerializeField] float currentLevelMultiplier = 1f;
     [SerializeField] float rockBookBonus = 0f;
 
+    [Header("Canvas Screen Panels")]
+    [SerializeField] GameObject gameScreen;
+    [SerializeField] GameObject gameOverScreen;
+    [SerializeField] GameObject shopScreen;
+    [SerializeField] GameObject transitionScreen;
+
+    [Header("Level Design & Spawning")]
+    [SerializeField] GameObject[] levelPrefabs;
+    [SerializeField] Transform levelSpawnParent;
+
     public int CurrentMoney => money;
     public float RockCollectorBonus => rockBookBonus;
 
+    GameObject currentLevelInstance;
     bool isGameOver = false;
 
     void Awake()
@@ -42,6 +57,13 @@ public class GameManager : MonoBehaviour
     {
         target = CalculateLevelGoal(level);
         UpdateVisualHUD();
+
+        if (gameScreen != null) gameScreen.SetActive(true);
+        if (gameOverScreen != null) gameOverScreen.SetActive(false);
+        if (shopScreen != null) shopScreen.SetActive(false);
+        if (transitionScreen != null) transitionScreen.SetActive(false);
+
+        LoadCurrentLevelLayout();
     }
 
     void Update()
@@ -76,7 +98,7 @@ public class GameManager : MonoBehaviour
 
         if (money >= target)
         {
-            NextLevel();
+            StartCoroutine(LevelClearTransitionSequence());
         }
         else
         {
@@ -84,14 +106,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void NextLevel()
+    IEnumerator LevelClearTransitionSequence()
     {
-        level++;
-        target = CalculateLevelGoal(level);
+        if (gameScreen != null) gameScreen.SetActive(false);
+        if (transitionScreen != null) transitionScreen.SetActive(true);
 
-        timeRemaining = 60f;
-        isGameOver = false;
-        UpdateVisualHUD();
+        yield return new WaitForSeconds(3f);
+
+        if (transitionScreen != null) transitionScreen.SetActive(false);
+        if (shopScreen != null) shopScreen.SetActive(true);
     }
 
     int CalculateLevelGoal(int currentLevel)
@@ -111,6 +134,7 @@ public class GameManager : MonoBehaviour
         if (targetText != null) targetText.text = $"{target}";
         if (levelText != null) levelText.text = $"{level}";
         if (timeText != null) timeText.text = Mathf.CeilToInt(timeRemaining).ToString();
+        if (storeMoneyText != null) storeMoneyText.text = $"{money}";
     }
 
     public void SpendMoney(int amount)
@@ -121,6 +145,46 @@ public class GameManager : MonoBehaviour
 
     public void StartNextLevel()
     {
-        NextLevel();
+        level++;
+        target = CalculateLevelGoal(level);
+        timeRemaining = 60f;
+        isGameOver = false;
+
+        UpdateVisualHUD();
+
+        LoadCurrentLevelLayout();
+
+        if (shopScreen != null) shopScreen.SetActive(false);
+        if (gameScreen != null) gameScreen.SetActive(true);
+    }
+
+    void LoadCurrentLevelLayout()
+    {
+        if (currentLevelInstance != null)
+        {
+            Destroy(currentLevelInstance);
+        }
+
+        if (levelPrefabs == null || levelPrefabs.Length == 0)
+        {
+            Debug.LogWarning("No Level Prefabs have been assigned to the GameManager script yet.");
+            return;
+        }
+
+        int targetPrefabIndex = level - 1;
+
+        if (targetPrefabIndex >= levelPrefabs.Length)
+        {
+            targetPrefabIndex = targetPrefabIndex % levelPrefabs.Length;
+        }
+
+        if (levelPrefabs[targetPrefabIndex] != null)
+        {
+            currentLevelInstance = Instantiate(levelPrefabs[targetPrefabIndex], levelSpawnParent);
+
+            currentLevelInstance.transform.localPosition = Vector3.zero;
+            currentLevelInstance.transform.localRotation = Quaternion.identity;
+            currentLevelInstance.transform.localScale = Vector3.one;
+        }
     }
 }
