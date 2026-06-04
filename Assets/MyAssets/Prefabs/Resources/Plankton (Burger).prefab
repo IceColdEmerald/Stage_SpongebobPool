@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6657092220536020484}
   - component: {fileID: 6995510591017003138}
   - component: {fileID: 83983894046543551}
+  - component: {fileID: -6402701413834949205}
   m_Layer: 7
   m_Name: Plankton (Burger)
   m_TagString: Untagged
@@ -142,3 +143,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrabableObject
   itemData: {fileID: 11400000, guid: f17c9dbcb7cb97545b0e8d39821e900a, type: 2}
+--- !u!114 &-6402701413834949205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3844194669374550400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 060d36c68bc969d4a8064b75058897e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlanktonMovement
+  moveSpeed: 2
+  boundaryRange: 4

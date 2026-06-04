@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5158542856210907698}
   - component: {fileID: 6995510591017003138}
   - component: {fileID: 83983894046543551}
+  - component: {fileID: -8654119940763240617}
   m_Layer: 7
   m_Name: Gerrit
   m_TagString: Untagged
@@ -142,3 +143,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrabableObject
   itemData: {fileID: 11400000, guid: 013de087351d8f44da91b441f4c829d2, type: 2}
+--- !u!114 &-8654119940763240617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3844194669374550400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07ebb06fe59fa9042ad1be8927afb3f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Garry

@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float currentLevelMultiplier = 1f;
     [SerializeField] float rockBookBonus = 0f;
 
+    public int CurrentMoney => money;
     public float RockCollectorBonus => rockBookBonus;
 
     bool isGameOver = false;
@@ -110,5 +111,16 @@ public class GameManager : MonoBehaviour
         if (targetText != null) targetText.text = $"{target}";
         if (levelText != null) levelText.text = $"{level}";
         if (timeText != null) timeText.text = Mathf.CeilToInt(timeRemaining).ToString();
+    }
+
+    public void SpendMoney(int amount)
+    {
+        money -= amount;
+        UpdateVisualHUD();
+    }
+
+    public void StartNextLevel()
+    {
+        NextLevel();
     }
 }

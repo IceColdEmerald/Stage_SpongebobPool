@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Plankton(Burger)
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Plankton
-  itemSprite: {fileID: 0}
-  visualScale: 1
+  itemSprite: {fileID: 656812491465077262, guid: b5091ba7b3f3e5a43987f197b91d8b6c, type: 3}
   baseValue: 602
   weightModifier: 1
