@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,7 +23,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text storeMoneyText;
 
     [Header("Progression Multipliers")]
-    [SerializeField] float currentLevelMultiplier = 1f;
     [SerializeField] float rockBookBonus = 0f;
 
     [Header("Canvas Screen Panels")]
@@ -30,6 +30,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject gameOverScreen;
     [SerializeField] GameObject shopScreen;
     [SerializeField] GameObject transitionScreen;
+    [SerializeField] GameObject beforeGameScreen;
+
+    [Header("UI Elementes (Intro Screen)")]
+    [SerializeField] TMP_Text beforeGameGoalText;
 
     [Header("Shop Settings")]
     [SerializeField] ShopManager shopManager;
@@ -58,15 +62,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        target = CalculateLevelGoal(level);
-        UpdateVisualHUD();
-
-        if (gameScreen != null) gameScreen.SetActive(true);
-        if (gameOverScreen != null) gameOverScreen.SetActive(false);
-        if (shopScreen != null) shopScreen.SetActive(false);
-        if (transitionScreen != null) transitionScreen.SetActive(false);
-
-        LoadCurrentLevelLayout();
+        StartCoroutine(StartLevelSequence());
     }
 
     void Update()
@@ -86,6 +82,34 @@ public class GameManager : MonoBehaviour
             timeText.text = "0";
             CheckLevelEndCondition();
         }
+    }
+
+    IEnumerator StartLevelSequence()
+    {
+        isGameOver = true;
+
+        target = CalculateLevelGoal(level);
+        UpdateVisualHUD();
+
+        if (beforeGameGoalText != null)
+        {
+            beforeGameGoalText.text = $"Your goal is ${target}";
+        }
+
+        if (gameScreen != null) gameScreen.SetActive(false);
+        if (gameOverScreen != null) gameOverScreen.SetActive(false);
+        if (shopScreen != null) shopScreen.SetActive(false);
+        if (transitionScreen != null) transitionScreen.SetActive(false);
+        if (beforeGameScreen != null) beforeGameScreen.SetActive(true);
+
+        LoadCurrentLevelLayout();
+
+        yield return new WaitForSeconds(2f);
+
+        if (beforeGameScreen != null) beforeGameScreen.SetActive(false);
+        if (gameScreen != null) gameScreen.SetActive(true);
+
+        isGameOver = false;
     }
 
     public void AddMoney(int amount)
@@ -129,7 +153,16 @@ public class GameManager : MonoBehaviour
 
     void TriggerGameOver()
     {
-        
+        StartCoroutine(GameOverSequence());
+    }
+
+    IEnumerator GameOverSequence()
+    {
+        if (gameScreen != null) gameScreen.SetActive(false);
+        if (gameOverScreen != null) gameOverScreen.SetActive(true);
+
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("StartScreen");
     }
 
     void UpdateVisualHUD()
@@ -150,18 +183,12 @@ public class GameManager : MonoBehaviour
     public void StartNextLevel()
     {
         level++;
-        target = CalculateLevelGoal(level);
         timeRemaining = 60f;
-        isGameOver = false;
-
-        UpdateVisualHUD();
-
-        LoadCurrentLevelLayout();
 
         if (shopScreen != null) shopScreen.SetActive(false);
         if (shopManager != null) shopManager.gameObject.SetActive(false);
-        
-        if (gameScreen != null) gameScreen.SetActive(true);
+
+        StartCoroutine(StartLevelSequence());
     }
 
     void LoadCurrentLevelLayout()
@@ -187,8 +214,6 @@ public class GameManager : MonoBehaviour
         if (levelPrefabs[targetPrefabIndex] != null)
         {
             currentLevelInstance = Instantiate(levelPrefabs[targetPrefabIndex], levelSpawnParent);
-
-            //currentLevelInstance.transform.localPosition = Vector3.zero;
             currentLevelInstance.transform.localRotation = Quaternion.identity;
             currentLevelInstance.transform.localScale = Vector3.one;
         }

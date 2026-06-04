@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartScreenController
   uiDocument: {fileID: 1087308683}
-  gameSceneName: SampleScene
+  gameSceneName: GameScene
   minBubbles: 100
   maxBubbles: 150
   minBubbleSize: 30

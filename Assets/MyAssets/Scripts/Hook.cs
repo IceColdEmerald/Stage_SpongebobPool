@@ -25,10 +25,32 @@ public class Hook : MonoBehaviour
 
     Vector2 originalPosition;
     GameObject grabbedObject = null;
+    bool isInitialized = false;
+
+    void Awake()
+    {
+        originalPosition = transform.position;
+        currentRetractSpeed = baseRetractSpeed;
+    }
+
+    void OnEnable()
+    {
+        if (!isInitialized)
+        {
+            originalPosition = transform.position;
+            isInitialized = true;
+        }
+
+        transform.position = originalPosition;
+        transform.rotation = Quaternion.identity;
+
+        currentState = HookState.Swinging;
+        currentRetractSpeed = baseRetractSpeed;
+        grabbedObject = null;
+    }
 
     void Start()
     {
-        originalPosition = transform.position;
         currentRetractSpeed = baseRetractSpeed;
     }
 
