@@ -21,6 +21,7 @@ public class Hook : MonoBehaviour
 
     [Header("Inventory")]
     [SerializeField] int explosivesCount = 3;
+    bool isStrengthActive = false;
 
     Vector2 originalPosition;
     GameObject grabbedObject = null;
@@ -97,7 +98,7 @@ public class Hook : MonoBehaviour
         float weightModifier = 1f;
         if (grabbedObject.TryGetComponent(out GrabableObject grabable))
         {
-            weightModifier = grabable.WeightModifier;
+            weightModifier = isStrengthActive ? 1f : grabable.WeightModifier;
         }
         StartRetracting(weightModifier);
     }
@@ -120,20 +121,25 @@ public class Hook : MonoBehaviour
 
     void UseExplosive()
     {
+        if (grabbedObject == null || explosivesCount <= 0) return;
+
         explosivesCount--;
-
-        if (grabbedObject != null)
-        {
-            Destroy(grabbedObject);
-            grabbedObject = null;
-        }
-
+        Destroy(grabbedObject);
+        grabbedObject = null;
         StartRetracting(1f);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (currentState != HookState.Extending) return;
+
+        if (collision.TryGetComponent(out Puff puff))
+        {
+            puff.Explode();
+            StartRetracting(1f);
+            GameManager.Instance.AddMoney(1);
+            return;
+        }
     
         if (((1 << collision.gameObject.layer) & borderLayer) != 0)
         {
@@ -142,6 +148,12 @@ public class Hook : MonoBehaviour
         else if (((1 << collision.gameObject.layer) & grabbableLayer) != 0)
         {
             grabbedObject = collision.gameObject;
+
+            if (grabbedObject.TryGetComponent(out PlanktonMovement plankton))
+            {
+                plankton.Freeze();
+            }
+
             currentState = HookState.Grabbing;
         }
     }
@@ -157,16 +169,14 @@ public class Hook : MonoBehaviour
     {
         if (grabbedObject != null)
         {
-            if (grabbedObject.TryGetComponent(out GrabableObject liveItem))
+            if (grabbedObject.TryGetComponent(out Garry garry))
+            {
+                garry.RevealMystery(this);
+            }
+            else if (grabbedObject.TryGetComponent(out GrabableObject liveItem))
             {
                 float rockBookBonus = GameManager.Instance.RockCollectorBonus;
-
-                int finalPayout = liveItem.DeliverValue(rockBookBonus);
-                GameManager.Instance.AddMoney(finalPayout);
-            }
-            else
-            {
-                GameManager.Instance.AddMoney(1);
+                GameManager.Instance.AddMoney(liveItem.DeliverValue(rockBookBonus));
             }
 
             Destroy(grabbedObject);
@@ -176,4 +186,8 @@ public class Hook : MonoBehaviour
         currentRetractSpeed = baseRetractSpeed;
         currentState = HookState.Swinging;
     }
+
+    public void AddExplosive(int amount) => explosivesCount += amount;
+    public void ActivateStrengthBuff() => isStrengthActive = true;
+    public void DeactivateStrengthBuff() => isStrengthActive = false;
 }

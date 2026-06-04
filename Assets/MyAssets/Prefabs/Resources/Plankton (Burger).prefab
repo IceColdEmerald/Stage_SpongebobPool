@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2814598328041617087}
+  - component: {fileID: 6657092220536020484}
   - component: {fileID: 6995510591017003138}
   - component: {fileID: 83983894046543551}
-  - component: {fileID: 5516150826980191168}
   m_Layer: 7
-  m_Name: Jellyfish (Small)
+  m_Name: Plankton (Burger)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,11 +29,47 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1037.6416, y: -762.45514, z: 0}
-  m_LocalScale: {x: 2.557875, y: 2.3796763, z: 1}
+  m_LocalScale: {x: 1.3641801, y: 1.3378129, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &6657092220536020484
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3844194669374550400}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.01926055, y: -0.049075607}
+  m_Radius: 0.33189738
 --- !u!212 &6995510591017003138
 SpriteRenderer:
   serializedVersion: 2
@@ -83,7 +119,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -3088573926481446168, guid: 315178c53f4eb7944a0b6dde4a47bb0b, type: 3}
+  m_Sprite: {fileID: 656812491465077262, guid: b5091ba7b3f3e5a43987f197b91d8b6c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,40 +141,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f78de34fc5136e94ba50dbdfd4d9bded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrabableObject
-  itemData: {fileID: 11400000, guid: cb9cadef181c4d940ab71743d6149968, type: 2}
---- !u!58 &5516150826980191168
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3844194669374550400}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.000023628641, y: 0.03955927}
-  m_Radius: 0.1558361
+  itemData: {fileID: 11400000, guid: f17c9dbcb7cb97545b0e8d39821e900a, type: 2}

@@ -6,7 +6,9 @@ public class GrabableObject : MonoBehaviour
     [SerializeField] ItemData itemData;
 
     SpriteRenderer spriteRenderer;
-    public float WeightModifier => itemData != null ? itemData.WeightModifier : 1f;
+    float customWeight = -1f;
+
+    public float WeightModifier => customWeight > 0 ? customWeight : (itemData != null ? itemData.WeightModifier : 1f);
     public string ItemName => itemData != null ? itemData.ItemName : "Unknown";
 
     void Awake()
@@ -24,23 +26,18 @@ public class GrabableObject : MonoBehaviour
 
     void OnValidate()
     {
-        if (spriteRenderer == null)
-        {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-        }
-
-        if (itemData == null)
-        {
-            InitializeObject();
-        }
+        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+        if (itemData == null) InitializeObject();
     }
 
     void InitializeObject()
     {
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.sprite = itemData.ItemSprite;
-        }
+        if (spriteRenderer != null) spriteRenderer.sprite = itemData.ItemSprite;
+    }
+
+    public void SetCustomWeight(float newWeight)
+    {
+        customWeight = newWeight;
     }
 
     public int DeliverValue(float itemUpgradeBonus)
