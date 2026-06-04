@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject shopScreen;
     [SerializeField] GameObject transitionScreen;
 
+    [Header("Shop Settings")]
+    [SerializeField] ShopManager shopManager;
+
     [Header("Level Design & Spawning")]
     [SerializeField] GameObject[] levelPrefabs;
     [SerializeField] Transform levelSpawnParent;
@@ -115,6 +118,7 @@ public class GameManager : MonoBehaviour
 
         if (transitionScreen != null) transitionScreen.SetActive(false);
         if (shopScreen != null) shopScreen.SetActive(true);
+        if (shopManager != null) shopManager.gameObject.SetActive(true);
     }
 
     int CalculateLevelGoal(int currentLevel)
@@ -155,6 +159,8 @@ public class GameManager : MonoBehaviour
         LoadCurrentLevelLayout();
 
         if (shopScreen != null) shopScreen.SetActive(false);
+        if (shopManager != null) shopManager.gameObject.SetActive(false);
+        
         if (gameScreen != null) gameScreen.SetActive(true);
     }
 

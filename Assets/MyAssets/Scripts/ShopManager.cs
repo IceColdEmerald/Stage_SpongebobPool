@@ -194,6 +194,5 @@ public class ShopManager : MonoBehaviour
     void ExitShopPhase()
     {
         GameManager.Instance.StartNextLevel();
-        gameObject.SetActive(false);
     }
 }
