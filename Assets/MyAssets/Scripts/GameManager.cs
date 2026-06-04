@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] float currentLevelMultiplier = 1f;
     [SerializeField] float rockBookBonus = 0f;
 
-    public float CurrentLevelMultiplier => currentLevelMultiplier;
     public float RockCollectorBonus => rockBookBonus;
 
     bool isGameOver = false;
@@ -40,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        target = CalculateLevelGoal(level);
         UpdateVisualHUD();
     }
 
@@ -86,13 +86,17 @@ public class GameManager : MonoBehaviour
     void NextLevel()
     {
         level++;
-        target += 650 + (level * 100);
-
-        currentLevelMultiplier += 0.05f;
+        target = CalculateLevelGoal(level);
 
         timeRemaining = 60f;
         isGameOver = false;
         UpdateVisualHUD();
+    }
+
+    int CalculateLevelGoal(int currentLevel)
+    {
+        if (currentLevel <= 0) return 0;
+        return (135 * currentLevel * currentLevel) + (140 * currentLevel) + 375;
     }
 
     void TriggerGameOver()
