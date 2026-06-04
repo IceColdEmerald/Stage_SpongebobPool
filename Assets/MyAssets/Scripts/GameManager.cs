@@ -136,34 +136,34 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator LevelClearTransitionSequence()
-    {
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.StopMusic();
+   IEnumerator LevelClearTransitionSequence()
+{
+    if (AudioManager.Instance != null)
+        AudioManager.Instance.StopMusic();
 
-        if (gameScreen != null)
-            gameScreen.SetActive(false);
+    if (gameScreen != null)
+        gameScreen.SetActive(false);
 
-        if (transitionScreen != null)
-            transitionScreen.SetActive(true);
+    if (transitionScreen != null)
+        transitionScreen.SetActive(true);
 
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.PlayFewMomentsLater();
+    if (AudioManager.Instance != null)
+        AudioManager.Instance.PlayFewMomentsLater();
 
-        yield return new WaitForSeconds(3f);
+    yield return new WaitForSeconds(3f);
 
-        if (transitionScreen != null)
-            transitionScreen.SetActive(false);
+    if (transitionScreen != null)
+        transitionScreen.SetActive(false);
 
-        if (shopScreen != null)
-            shopScreen.SetActive(true);
+    if (shopScreen != null)
+        shopScreen.SetActive(true);
 
-        if (shopManager != null)
-            shopManager.gameObject.SetActive(true);
+    if (shopManager != null)
+        shopManager.gameObject.SetActive(true);
 
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.PlayShopMusic();
-    }
+    if (AudioManager.Instance != null)
+        AudioManager.Instance.PlayShopMusic();
+}
     int CalculateLevelGoal(int currentLevel)
     {
         if (currentLevel <= 0) return 0;
@@ -202,19 +202,22 @@ public class GameManager : MonoBehaviour
         UpdateVisualHUD();
     }
 
-    public void StartNextLevel()
-    {
-        level++;
-        timeRemaining = 60f;
+   public void StartNextLevel()
+{
+    level++;
+    timeRemaining = 60f;
 
-        if (shopScreen != null) shopScreen.SetActive(false);
-        if (shopManager != null) shopManager.gameObject.SetActive(false);
+    if (shopScreen != null)
+        shopScreen.SetActive(false);
 
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.PlayGameplayMusic();
+    if (shopManager != null)
+        shopManager.gameObject.SetActive(false);
 
-        StartCoroutine(StartLevelSequence());
-    }
+    if (AudioManager.Instance != null)
+        AudioManager.Instance.PlayGameplayMusic();
+
+    StartCoroutine(StartLevelSequence());
+}
 
     void LoadCurrentLevelLayout()
     {

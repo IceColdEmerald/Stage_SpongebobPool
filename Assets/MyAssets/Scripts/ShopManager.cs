@@ -138,12 +138,9 @@ public class ShopManager : MonoBehaviour
             clickedButton.gameObject.SetActive(false);
         }
         else
-        {
-            if (AudioManager.Instance != null)
-                AudioManager.Instance.PlayNoMoney();
-
-            Debug.Log($"Not enough money to purchase {itemID}");
-        }
+{
+    Debug.Log($"Not enough money to purchase {itemID}");
+}
     }
 
     void ApplyItemEffect(string itemID)

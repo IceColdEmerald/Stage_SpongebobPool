@@ -59,19 +59,18 @@ public class StartScreenController : MonoBehaviour
             highScoresButton.clicked -= OnHighScoresClicked;
     }
 
-    private void OnStartClicked()
+   private void OnStartClicked()
+{
+    if (isLoading)
+        return;
+
+    if (AudioManager.Instance != null)
     {
-        if (isLoading)
-            return;
-
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlayButtonClick();
-            AudioManager.Instance.PlayBubbleTransition();
-        }
-
-        StartCoroutine(StartGameTransition());
+        AudioManager.Instance.PlayButtonClick();
     }
+
+    StartCoroutine(StartGameTransition());
+}
 
     private IEnumerator StartGameTransition()
     {

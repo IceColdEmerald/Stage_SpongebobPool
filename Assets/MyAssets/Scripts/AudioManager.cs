@@ -14,20 +14,17 @@ public class AudioManager : MonoBehaviour
     [Header("Gameplay Music Playlist")]
     [SerializeField] private AudioClip[] gameplayMusicPlaylist;
 
-    [Header("Other Music")]
+    [Header("Shop Music")]
     [SerializeField] private AudioClip shopMusic;
 
     [Header("SFX")]
-    [SerializeField] private AudioClip bubbleTransitionSound;
     [SerializeField] private AudioClip buttonClickSound;
     [SerializeField] private AudioClip hookShootSound;
     [SerializeField] private AudioClip itemDeliverSound;
     [SerializeField] private AudioClip explosionSound;
     [SerializeField] private AudioClip purchaseSound;
-    [SerializeField] private AudioClip noMoneySound;
-    [SerializeField] private AudioClip levelClearSound;
-    [SerializeField] private AudioClip gameOverSound;
     [SerializeField] private AudioClip fewMomentsLaterSound;
+    [SerializeField] private AudioClip gameOverSound;
 
     private int currentStartMenuMusicIndex;
     private int currentGameplayMusicIndex;
@@ -48,11 +45,9 @@ public class AudioManager : MonoBehaviour
 
         musicSource = gameObject.AddComponent<AudioSource>();
         musicSource.playOnAwake = false;
-        musicSource.loop = false;
 
         sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.playOnAwake = false;
-        sfxSource.loop = false;
 
         hookLoopSource = gameObject.AddComponent<AudioSource>();
         hookLoopSource.playOnAwake = false;
@@ -61,8 +56,7 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
-        if (musicSource == null)
-            return;
+        if (musicSource == null) return;
 
         if (isPlayingStartMenuPlaylist && !musicSource.isPlaying)
             PlayNextStartMenuSong();
@@ -73,10 +67,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayStartMenuMusic()
     {
-        if (startMenuMusicPlaylist == null || startMenuMusicPlaylist.Length == 0)
-            return;
-
-        StopHookShoot();
+        if (startMenuMusicPlaylist == null || startMenuMusicPlaylist.Length == 0) return;
 
         isPlayingStartMenuPlaylist = true;
         isPlayingGameplayPlaylist = false;
@@ -87,9 +78,6 @@ public class AudioManager : MonoBehaviour
 
     private void PlayCurrentStartMenuSong()
     {
-        if (startMenuMusicPlaylist[currentStartMenuMusicIndex] == null)
-            return;
-
         musicSource.clip = startMenuMusicPlaylist[currentStartMenuMusicIndex];
         musicSource.loop = false;
         musicSource.Play();
@@ -107,10 +95,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayGameplayMusic()
     {
-        if (gameplayMusicPlaylist == null || gameplayMusicPlaylist.Length == 0)
-            return;
-
-        StopHookShoot();
+        if (gameplayMusicPlaylist == null || gameplayMusicPlaylist.Length == 0) return;
 
         isPlayingStartMenuPlaylist = false;
         isPlayingGameplayPlaylist = true;
@@ -121,9 +106,6 @@ public class AudioManager : MonoBehaviour
 
     private void PlayCurrentGameplaySong()
     {
-        if (gameplayMusicPlaylist[currentGameplayMusicIndex] == null)
-            return;
-
         musicSource.clip = gameplayMusicPlaylist[currentGameplayMusicIndex];
         musicSource.loop = false;
         musicSource.Play();
@@ -141,12 +123,14 @@ public class AudioManager : MonoBehaviour
 
     public void PlayShopMusic()
     {
-        StopHookShoot();
-
         isPlayingStartMenuPlaylist = false;
         isPlayingGameplayPlaylist = false;
 
-        PlayMusic(shopMusic);
+        if (shopMusic == null) return;
+
+        musicSource.clip = shopMusic;
+        musicSource.loop = true;
+        musicSource.Play();
     }
 
     public void StopMusic()
@@ -158,27 +142,19 @@ public class AudioManager : MonoBehaviour
             musicSource.Stop();
     }
 
-    public void PlayBubbleTransition() => PlaySFX(bubbleTransitionSound);
     public void PlayButtonClick() => PlaySFX(buttonClickSound);
     public void PlayItemDeliver() => PlaySFX(itemDeliverSound);
     public void PlayExplosion() => PlaySFX(explosionSound);
     public void PlayPurchase() => PlaySFX(purchaseSound);
-    public void PlayNoMoney() => PlaySFX(noMoneySound);
-    public void PlayLevelClear() => PlaySFX(levelClearSound);
-    public void PlayGameOver() => PlaySFX(gameOverSound);
     public void PlayFewMomentsLater() => PlaySFX(fewMomentsLaterSound);
     public void PlayCustomSFX(AudioClip clip) => PlaySFX(clip);
 
     public void PlayHookShoot()
     {
-        if (hookShootSound == null || hookLoopSource == null)
-            return;
-
-        if (hookLoopSource.isPlaying)
-            return;
+        if (hookShootSound == null || hookLoopSource == null) return;
+        if (hookLoopSource.isPlaying) return;
 
         hookLoopSource.clip = hookShootSound;
-        hookLoopSource.loop = true;
         hookLoopSource.Play();
     }
 
@@ -188,21 +164,14 @@ public class AudioManager : MonoBehaviour
             hookLoopSource.Stop();
     }
 
-    private void PlayMusic(AudioClip musicClip)
+    private void PlaySFX(AudioClip clip)
     {
-        if (musicClip == null || musicSource == null)
-            return;
-
-        musicSource.clip = musicClip;
-        musicSource.loop = true;
-        musicSource.Play();
+        if (clip == null || sfxSource == null) return;
+        sfxSource.PlayOneShot(clip);
     }
 
-    private void PlaySFX(AudioClip sfxClip)
+    public void PlayGameOver()
     {
-        if (sfxClip == null || sfxSource == null)
-            return;
-
-        sfxSource.PlayOneShot(sfxClip);
+        PlaySFX(gameOverSound);
     }
 }
