@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour
         {
             currentLevelInstance = Instantiate(levelPrefabs[targetPrefabIndex], levelSpawnParent);
 
-            currentLevelInstance.transform.localPosition = Vector3.zero;
+            //currentLevelInstance.transform.localPosition = Vector3.zero;
             currentLevelInstance.transform.localRotation = Quaternion.identity;
             currentLevelInstance.transform.localScale = Vector3.one;
         }
