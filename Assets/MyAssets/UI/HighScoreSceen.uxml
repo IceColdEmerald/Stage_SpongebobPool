@@ -51,6 +51,6 @@
             <ui:Button name="PlayAgainButton" style="color: rgba(27, 27, 27, 0); -unity-background-image-tint-color: rgba(255, 255, 255, 0); background-color: rgba(188, 188, 188, 0); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); top: 30%; width: 21%; height: 19%; left: 37%;"/>
             <ui:Label text="PRESS" picking-mode="Ignore" style="position: relative; top: -11%; font-size: 31px; color: rgb(108, 93, 28);"/>
         </ui:VisualElement>
+        <ui:VisualElement name="BubbleTransition" class="bubble-transition"/>
     </ui:VisualElement>
-    <ui:VisualElement name="BubbleTransition" picking-mode="Ignore"/>
 </ui:UXML>

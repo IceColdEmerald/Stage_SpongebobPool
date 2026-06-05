@@ -166,3 +166,27 @@
     font-size: 28px;
     unity-font-style: bold;
 }
+
+.bubble-transition {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 120, 180, 0.35);
+    display: none;
+    opacity: 0;
+}
+
+.bubble-transition.active {
+    opacity: 1;
+    display: flex;
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.45);
+    border-width: 3px;
+    border-color: rgba(255, 255, 255, 0.8);
+}

@@ -12,6 +12,12 @@ public class HighScoreScreenController : MonoBehaviour
 
     private bool isLoading;
 
+    private void Start()
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayStartMenuMusic();
+    }
+
     private void Awake()
     {
         VisualElement root = uiDocument.rootVisualElement;
@@ -37,6 +43,11 @@ public class HighScoreScreenController : MonoBehaviour
             return;
         print("Play Again Clicked");
         isLoading = true;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClick();
+        }
 
         playAgainButton.SetEnabled(false);
 
