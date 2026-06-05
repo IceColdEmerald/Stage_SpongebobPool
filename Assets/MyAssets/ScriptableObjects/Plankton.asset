@@ -15,5 +15,6 @@ MonoBehaviour:
   itemName: Plankton
   itemSprite: {fileID: -5362371316097722740, guid: 315178c53f4eb7944a0b6dde4a47bb0b, type: 3}
   grabSound: {fileID: 8300000, guid: 832f99c34bb165945afade87ca51143f, type: 3}
+  grabSoundVolume: 0.5
   baseValue: 2
   weightModifier: 2

@@ -15,5 +15,6 @@ MonoBehaviour:
   itemName: Puff
   itemSprite: {fileID: 9073706734877461095, guid: 315178c53f4eb7944a0b6dde4a47bb0b, type: 3}
   grabSound: {fileID: 8300000, guid: 05aedb084bf90e742a535d8ca17ed215, type: 3}
+  grabSoundVolume: 0.5
   baseValue: 1
   weightModifier: 2

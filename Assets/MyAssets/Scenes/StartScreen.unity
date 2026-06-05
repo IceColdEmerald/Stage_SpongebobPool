@@ -326,16 +326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StartScreenController
   uiDocument: {fileID: 1087308683}
   gameSceneName: GameScene
-  minBubbles: 100
-  maxBubbles: 150
-  minBubbleSize: 30
-  maxBubbleSize: 70
-  minSpeed: 300
-  maxSpeed: 450
-  extraTransitionTime: 2.5
-  zigzagSpeed: 5
-  minZigzagAmount: 20
-  maxZigzagAmount: 90
+  highScoreSceneName: HighScoreScene
 --- !u!1001 &1652070794844878884
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -345,13 +336,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3820128802704724331, guid: b59e9c5e6196a3c44807c64192680447, type: 3}
-      propertyPath: shopMusic
-      value: 
-      objectReference: {fileID: 8300000, guid: 0a6daba6df1bc294b93dc7b0c4b1da3a, type: 3}
+      propertyPath: gerritPieVolume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3820128802704724331, guid: b59e9c5e6196a3c44807c64192680447, type: 3}
-      propertyPath: gameOverSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 226da2519e785c244b3a3771ceeeb621, type: 3}
+      propertyPath: buttonClickVolume
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3820128802704724331, guid: b59e9c5e6196a3c44807c64192680447, type: 3}
+      propertyPath: gerritCoinsVolume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3820128802704724331, guid: b59e9c5e6196a3c44807c64192680447, type: 3}
+      propertyPath: gerritStrengthVolume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8727988664309247570, guid: b59e9c5e6196a3c44807c64192680447, type: 3}
       propertyPath: m_Name
       value: AudioManager

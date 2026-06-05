@@ -15,5 +15,6 @@ MonoBehaviour:
   itemName: Jellyfish
   itemSprite: {fileID: -3088573926481446168, guid: 315178c53f4eb7944a0b6dde4a47bb0b, type: 3}
   grabSound: {fileID: 8300000, guid: a1e5223b14dedbe44a8519eeb03e3450, type: 3}
+  grabSoundVolume: 0.3
   baseValue: 100
   weightModifier: 5
