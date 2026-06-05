@@ -19,10 +19,6 @@ public class Hook : MonoBehaviour
     [SerializeField] LayerMask borderLayer;
     [SerializeField] LayerMask grabbableLayer;
 
-    [Header("Inventory")]
-    [SerializeField] int explosivesCount = 3;
-    bool isStrengthActive = false;
-
     [Header("Visual (Rope)")]
     [SerializeField] LineRenderer lineRenderer;
 
@@ -116,7 +112,7 @@ public class Hook : MonoBehaviour
             currentState = HookState.Extending;
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && currentState == HookState.Grabbing && grabbedObject != null && explosivesCount > 0)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && currentState == HookState.Retracting && grabbedObject != null && GameManager.Instance.ExplosivesCount > 0)
         {
             UseExplosive();
         }
@@ -155,7 +151,7 @@ public class Hook : MonoBehaviour
 
         if (grabbedObject.TryGetComponent(out GrabableObject grabable))
         {
-            weightModifier = isStrengthActive ? 1f : grabable.WeightModifier;
+            weightModifier = GameManager.Instance.HasIceCream ? 1f : grabable.WeightModifier;
         }
 
         StartRetracting(weightModifier);
@@ -183,12 +179,15 @@ public class Hook : MonoBehaviour
 
     void UseExplosive()
     {
-        if (grabbedObject == null || explosivesCount <= 0) return;
+        if (grabbedObject == null || GameManager.Instance.ExplosivesCount <= 0) return;
 
         if (AudioManager.Instance != null)
             AudioManager.Instance.PlayExplosion();
 
-        explosivesCount--;
+        GameManager.Instance.UseExplosivePie();
+
+        FindFirstObjectByType<ExplosivesUI>()?.UpdateDisplay();
+
         Destroy(grabbedObject);
         grabbedObject = null;
         StartRetracting(1f);
@@ -255,8 +254,10 @@ public class Hook : MonoBehaviour
             }
             else if (grabbedObject.TryGetComponent(out GrabableObject liveItem))
             {
-                float rockBookBonus = GameManager.Instance.RockCollectorBonus;
-                GameManager.Instance.AddMoney(liveItem.DeliverValue(rockBookBonus));
+                string itemName = liveItem.gameObject.name;
+                if (liveItem.ItemData != null) itemName = liveItem.ItemData.ItemName;
+
+                GameManager.Instance.ProcessItemDelivery(itemName, liveItem.DeliverValue(0f));
             }
 
             Destroy(grabbedObject);
@@ -266,8 +267,4 @@ public class Hook : MonoBehaviour
         currentRetractSpeed = baseRetractSpeed;
         currentState = HookState.Swinging;
     }
-
-    public void AddExplosive(int amount) => explosivesCount += amount;
-    public void ActivateStrengthBuff() => isStrengthActive = true;
-    public void DeactivateStrengthBuff() => isStrengthActive = false;
 }

@@ -22,6 +22,15 @@ public class GameManager : MonoBehaviour
     [Header("UI Elements (Shop HUD)")]
     [SerializeField] TMP_Text storeMoneyText;
 
+    [Header("Persistent Inventory")]
+    [SerializeField] int explosivesCount = 0;
+
+    [Header("Active Single-Round Buffs")]
+    [SerializeField] bool hasIceCream = false;
+    [SerializeField] bool hasGarryBowl = false;
+    [SerializeField] bool hasSeaUrchin = false;
+    [SerializeField] bool hasSecretFormula = false;
+
     [Header("Progression Multipliers")]
     [SerializeField] float rockBookBonus = 0f;
 
@@ -43,7 +52,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] Transform levelSpawnParent;
 
     public int CurrentMoney => money;
-    public float RockCollectorBonus => rockBookBonus;
+    public int ExplosivesCount => explosivesCount;
+    public bool HasIceCream => hasIceCream;
+    public bool HasGarryBowl => hasGarryBowl;
+    public bool HasSeaUrchin => hasSeaUrchin;
+    public bool HasSecretFormula => hasSecretFormula;
 
     GameObject currentLevelInstance;
     bool isGameOver = false;
@@ -115,6 +128,23 @@ public class GameManager : MonoBehaviour
         isGameOver = false;
     }
 
+    public void ProcessItemDelivery(string itemName, int baseValue)
+    {
+        int finalPayout = baseValue;
+        string lowerName = itemName.ToLower();
+
+        if (hasSeaUrchin && lowerName.Contains("egel"))
+        {
+            finalPayout *= 3;
+        }
+        else if (hasSecretFormula && lowerName.Contains("krab"))
+        {
+            finalPayout = Mathf.RoundToInt(finalPayout * 1.5f);
+        }
+
+        AddMoney(finalPayout);
+    }
+
     public void AddMoney(int amount)
     {
         if (isGameOver) return;
@@ -125,6 +155,8 @@ public class GameManager : MonoBehaviour
     void CheckLevelEndCondition()
     {
         isGameOver = true;
+
+        ResetRoundBuffs();
 
         if (money >= target)
         {
@@ -150,7 +182,7 @@ public class GameManager : MonoBehaviour
     if (AudioManager.Instance != null)
         AudioManager.Instance.PlayFewMomentsLater();
 
-    yield return new WaitForSeconds(3f);
+    yield return new WaitForSeconds(1.5f);
 
     if (transitionScreen != null)
         transitionScreen.SetActive(false);
@@ -163,7 +195,8 @@ public class GameManager : MonoBehaviour
 
     if (AudioManager.Instance != null)
         AudioManager.Instance.PlayShopMusic();
-}
+    }
+
     int CalculateLevelGoal(int currentLevel)
     {
         if (currentLevel <= 0) return 0;
@@ -202,22 +235,44 @@ public class GameManager : MonoBehaviour
         UpdateVisualHUD();
     }
 
-   public void StartNextLevel()
-{
-    level++;
-    timeRemaining = 60f;
+    public void StartNextLevel()
+    {
+        level++;
+        timeRemaining = 60f;
 
-    if (shopScreen != null)
-        shopScreen.SetActive(false);
+        if (shopScreen != null)
+            shopScreen.SetActive(false);
 
-    if (shopManager != null)
-        shopManager.gameObject.SetActive(false);
+        if (shopManager != null)
+            shopManager.gameObject.SetActive(false);
 
-    if (AudioManager.Instance != null)
-        AudioManager.Instance.PlayGameplayMusic();
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayGameplayMusic();
 
-    StartCoroutine(StartLevelSequence());
-}
+        StartCoroutine(StartLevelSequence());
+    }
+
+    public void BuyExplosivePie()
+    {
+        if (explosivesCount < 3)
+        {
+            explosivesCount++;
+            FindFirstObjectByType<ExplosivesUI>()?.UpdateDisplay();
+        }
+    }
+    public void UseExplosivePie() => explosivesCount--;
+    public void SetStrengthBuff(bool active) => hasIceCream = active;
+    public void SetGarryBowlBuff(bool active) => hasGarryBowl = active;
+    public void SetSeaUrchinBuff(bool active) => hasSeaUrchin = active;
+    public void SetSecretFormulaBuff(bool active) => hasSecretFormula = active;
+
+    void ResetRoundBuffs()
+    {
+        hasIceCream = false;
+        hasGarryBowl = false;
+        hasSeaUrchin = false;
+        hasSecretFormula = false;
+    }
 
     void LoadCurrentLevelLayout()
     {

@@ -138,9 +138,9 @@ public class ShopManager : MonoBehaviour
             clickedButton.gameObject.SetActive(false);
         }
         else
-{
-    Debug.Log($"Not enough money to purchase {itemID}");
-}
+        {
+            Debug.Log($"Not enough money to purchase {itemID}");
+        }
     }
 
     void ApplyItemEffect(string itemID)
@@ -150,19 +150,19 @@ public class ShopManager : MonoBehaviour
         switch (itemID)
         {
             case "Pie":
-                playerHook.AddExplosive(1);
+                GameManager.Instance.BuyExplosivePie();
                 break;
             case "IceCream":
-                playerHook.ActivateStrengthBuff();
+                GameManager.Instance.SetStrengthBuff(true);
                 break;
             case "GarryBowl":
-                // Yet to make
+                GameManager.Instance.SetGarryBowlBuff(true);
                 break;
             case "SeaUrchin":
-                // Yet to make
+                GameManager.Instance.SetSeaUrchinBuff(true);
                 break;
             case "SecretFormula":
-                // Yet to make
+                GameManager.Instance.SetSecretFormulaBuff(true);
                 break;
         }
     }

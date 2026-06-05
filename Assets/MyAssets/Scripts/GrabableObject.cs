@@ -5,6 +5,8 @@ public class GrabableObject : MonoBehaviour
     [Header("Data Source")]
     [SerializeField] ItemData itemData;
 
+    public ItemData ItemData => itemData;
+
     SpriteRenderer spriteRenderer;
     float customWeight = -1f;
 

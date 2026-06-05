@@ -2,6 +2,14 @@ using UnityEngine;
 
 public class Garry : MonoBehaviour
 {
+    [Header("Mystery Value Ranges")]
+    [SerializeField] int normalMinMoney = 5;
+    [SerializeField] int normalMaxMoney = 500;
+
+    [Header("Gary Bowl Ranges")]
+    [SerializeField] int bowlMinMoney = 300;
+    [SerializeField] int bowlMaxMoney = 800;
+
     void Start()
     {
         if (TryGetComponent(out GrabableObject grabable))
@@ -13,20 +21,42 @@ public class Garry : MonoBehaviour
 
     public void RevealMystery(Hook playerHook)
     {
-        int rolledReward = Random.Range(0, 3);
 
-        switch (rolledReward)
+        bool isLucky = GameManager.Instance.HasGarryBowl;
+        int outcome = Random.Range(1, 4);
+
+
+        if (isLucky)
         {
-            case 0:
-                int randomCashPayout = Random.Range(8, 801);
-                GameManager.Instance.AddMoney(randomCashPayout);
-                break;
-            case 1:
-                playerHook.AddExplosive(1);
-                break;
-            case 2:
-                playerHook.ActivateStrengthBuff();
-                break;
+            switch (outcome)
+            {
+                case 1:
+                    int randomCashPayout = Random.Range(normalMinMoney, normalMaxMoney);
+                    GameManager.Instance.AddMoney(randomCashPayout);
+                    break;
+                case 2:
+                    GameManager.Instance.BuyExplosivePie();
+                    break;
+                case 3:
+                    GameManager.Instance.SetStrengthBuff(true);
+                    break;
+            }
+        }
+        else
+        {
+            switch (outcome)
+            {
+                case 1:
+                    int randomCashPayout = Random.Range(bowlMinMoney, bowlMaxMoney);
+                    GameManager.Instance.AddMoney(randomCashPayout);
+                    break;
+                case 2:
+                    GameManager.Instance.BuyExplosivePie();
+                    break;
+                case 3:
+                    GameManager.Instance.SetStrengthBuff(true);
+                    break;
+            }
         }
     }
 }
