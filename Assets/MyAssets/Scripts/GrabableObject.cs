@@ -13,6 +13,7 @@ public class GrabableObject : MonoBehaviour
     public float WeightModifier => customWeight > 0 ? customWeight : (itemData != null ? itemData.WeightModifier : 1f);
     public string ItemName => itemData != null ? itemData.ItemName : "Unknown";
     public AudioClip GrabSound => itemData != null ? itemData.GrabSound : null;
+    public float GrabSoundVolume => itemData != null ? itemData.GrabSoundVolume : 1f;
 
     void Awake()
     {

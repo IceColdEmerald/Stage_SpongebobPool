@@ -48,6 +48,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cdabf4fdf5ff75f4b9c07a621cdc0899, type: 3}
   - {fileID: 8300000, guid: 66f085d1d574e964fbdb4479f18540c3, type: 3}
   - {fileID: 8300000, guid: 2cc1787e94a97a348bb473d26bb09ec2, type: 3}
+  startMenuMusicVolume: 0.3
   gameplayMusicPlaylist:
   - {fileID: 8300000, guid: 10124bef6fed83c4a8bbefeb9aaaee42, type: 3}
   - {fileID: 8300000, guid: de76602b00fe3834785b8bb715a6bd2c, type: 3}
@@ -62,14 +63,26 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9d38d675ccdde184d80138370088a56f, type: 3}
   - {fileID: 8300000, guid: d5c92a7ae3b2b3442bdbff3d0cabba8e, type: 3}
   - {fileID: 8300000, guid: 9048d635becf5874eb40cc3a061ce77d, type: 3}
-  shopMusic: {fileID: 0}
-  bubbleTransitionSound: {fileID: 0}
+  gameplayMusicVolume: 0.3
+  shopMusic: {fileID: 8300000, guid: 0a6daba6df1bc294b93dc7b0c4b1da3a, type: 3}
+  shopMusicVolume: 0.4
   buttonClickSound: {fileID: 8300000, guid: aeed177a7a3a3554cbd8f86aeaa26f22, type: 3}
+  buttonClickVolume: 1
   hookShootSound: {fileID: 8300000, guid: 844b99c08ec911e459237af94eae9e49, type: 3}
+  hookShootVolume: 1
   itemDeliverSound: {fileID: 8300000, guid: f97088c896c6cfd45a2fbd1c787c9281, type: 3}
+  itemDeliverVolume: 1
   explosionSound: {fileID: 8300000, guid: 05aedb084bf90e742a535d8ca17ed215, type: 3}
+  explosionVolume: 1
   purchaseSound: {fileID: 8300000, guid: f97088c896c6cfd45a2fbd1c787c9281, type: 3}
-  noMoneySound: {fileID: 0}
-  levelClearSound: {fileID: 0}
-  gameOverSound: {fileID: 0}
+  purchaseVolume: 1
   fewMomentsLaterSound: {fileID: 8300000, guid: 72bb48877ba7cd843b4a7fe243499900, type: 3}
+  fewMomentsLaterVolume: 1
+  gameOverSound: {fileID: 8300000, guid: 226da2519e785c244b3a3771ceeeb621, type: 3}
+  gameOverVolume: 1
+  gerritCoinsSound: {fileID: 8300000, guid: f97088c896c6cfd45a2fbd1c787c9281, type: 3}
+  gerritCoinsVolume: 1
+  gerritPieSound: {fileID: 8300000, guid: 88bdaa8cb15ac8c49b72aaac970a2845, type: 3}
+  gerritPieVolume: 1
+  gerritStrengthSound: {fileID: 8300000, guid: 82591751443e9cb47a2c96104d5d971b, type: 3}
+  gerritStrengthVolume: 1

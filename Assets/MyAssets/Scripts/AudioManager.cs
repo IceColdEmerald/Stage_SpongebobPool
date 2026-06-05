@@ -10,21 +10,60 @@ public class AudioManager : MonoBehaviour
 
     [Header("Start Menu Music Playlist")]
     [SerializeField] private AudioClip[] startMenuMusicPlaylist;
+    [Range(0f, 1f)]
+    [SerializeField] private float startMenuMusicVolume = 0.4f;
 
     [Header("Gameplay Music Playlist")]
     [SerializeField] private AudioClip[] gameplayMusicPlaylist;
+    [Range(0f, 1f)]
+    [SerializeField] private float gameplayMusicVolume = 0.4f;
 
-    [Header("Shop Music")]
+    [Header("Shop / Highscore Music")]
     [SerializeField] private AudioClip shopMusic;
+    [Range(0f, 1f)]
+    [SerializeField] private float shopMusicVolume = 0.4f;
 
-    [Header("SFX")]
+    [Header("General SFX")]
     [SerializeField] private AudioClip buttonClickSound;
+    [Range(0f, 1f)]
+    [SerializeField] private float buttonClickVolume = 1f;
+
     [SerializeField] private AudioClip hookShootSound;
+    [Range(0f, 1f)]
+    [SerializeField] private float hookShootVolume = 1f;
+
     [SerializeField] private AudioClip itemDeliverSound;
+    [Range(0f, 1f)]
+    [SerializeField] private float itemDeliverVolume = 1f;
+
     [SerializeField] private AudioClip explosionSound;
+    [Range(0f, 1f)]
+    [SerializeField] private float explosionVolume = 1f;
+
     [SerializeField] private AudioClip purchaseSound;
+    [Range(0f, 1f)]
+    [SerializeField] private float purchaseVolume = 1f;
+
     [SerializeField] private AudioClip fewMomentsLaterSound;
+    [Range(0f, 1f)]
+    [SerializeField] private float fewMomentsLaterVolume = 1f;
+
     [SerializeField] private AudioClip gameOverSound;
+    [Range(0f, 1f)]
+    [SerializeField] private float gameOverVolume = 1f;
+
+    [Header("Gerrit Rewards")]
+    [SerializeField] private AudioClip gerritCoinsSound;
+    [Range(0f, 1f)]
+    [SerializeField] private float gerritCoinsVolume = 1f;
+
+    [SerializeField] private AudioClip gerritPieSound;
+    [Range(0f, 1f)]
+    [SerializeField] private float gerritPieVolume = 1f;
+
+    [SerializeField] private AudioClip gerritStrengthSound;
+    [Range(0f, 1f)]
+    [SerializeField] private float gerritStrengthVolume = 1f;
 
     private int currentStartMenuMusicIndex;
     private int currentGameplayMusicIndex;
@@ -69,6 +108,8 @@ public class AudioManager : MonoBehaviour
     {
         if (startMenuMusicPlaylist == null || startMenuMusicPlaylist.Length == 0) return;
 
+        StopHookShoot();
+
         isPlayingStartMenuPlaylist = true;
         isPlayingGameplayPlaylist = false;
 
@@ -78,7 +119,10 @@ public class AudioManager : MonoBehaviour
 
     private void PlayCurrentStartMenuSong()
     {
+        if (startMenuMusicPlaylist[currentStartMenuMusicIndex] == null) return;
+
         musicSource.clip = startMenuMusicPlaylist[currentStartMenuMusicIndex];
+        musicSource.volume = startMenuMusicVolume;
         musicSource.loop = false;
         musicSource.Play();
     }
@@ -97,6 +141,8 @@ public class AudioManager : MonoBehaviour
     {
         if (gameplayMusicPlaylist == null || gameplayMusicPlaylist.Length == 0) return;
 
+        StopHookShoot();
+
         isPlayingStartMenuPlaylist = false;
         isPlayingGameplayPlaylist = true;
 
@@ -106,7 +152,10 @@ public class AudioManager : MonoBehaviour
 
     private void PlayCurrentGameplaySong()
     {
+        if (gameplayMusicPlaylist[currentGameplayMusicIndex] == null) return;
+
         musicSource.clip = gameplayMusicPlaylist[currentGameplayMusicIndex];
+        musicSource.volume = gameplayMusicVolume;
         musicSource.loop = false;
         musicSource.Play();
     }
@@ -123,12 +172,15 @@ public class AudioManager : MonoBehaviour
 
     public void PlayShopMusic()
     {
+        StopHookShoot();
+
         isPlayingStartMenuPlaylist = false;
         isPlayingGameplayPlaylist = false;
 
         if (shopMusic == null) return;
 
         musicSource.clip = shopMusic;
+        musicSource.volume = shopMusicVolume;
         musicSource.loop = true;
         musicSource.Play();
     }
@@ -142,12 +194,18 @@ public class AudioManager : MonoBehaviour
             musicSource.Stop();
     }
 
-    public void PlayButtonClick() => PlaySFX(buttonClickSound);
-    public void PlayItemDeliver() => PlaySFX(itemDeliverSound);
-    public void PlayExplosion() => PlaySFX(explosionSound);
-    public void PlayPurchase() => PlaySFX(purchaseSound);
-    public void PlayFewMomentsLater() => PlaySFX(fewMomentsLaterSound);
-    public void PlayCustomSFX(AudioClip clip) => PlaySFX(clip);
+    public void PlayButtonClick() => PlaySFX(buttonClickSound, buttonClickVolume);
+    public void PlayItemDeliver() => PlaySFX(itemDeliverSound, itemDeliverVolume);
+    public void PlayExplosion() => PlaySFX(explosionSound, explosionVolume);
+    public void PlayPurchase() => PlaySFX(purchaseSound, purchaseVolume);
+    public void PlayFewMomentsLater() => PlaySFX(fewMomentsLaterSound, fewMomentsLaterVolume);
+    public void PlayGameOver() => PlaySFX(gameOverSound, gameOverVolume);
+
+    public void PlayGerritCoins() => PlaySFX(gerritCoinsSound, gerritCoinsVolume);
+    public void PlayGerritPie() => PlaySFX(gerritPieSound, gerritPieVolume);
+    public void PlayGerritStrength() => PlaySFX(gerritStrengthSound, gerritStrengthVolume);
+
+    public void PlayCustomSFX(AudioClip clip) => PlaySFX(clip, 1f);
 
     public void PlayHookShoot()
     {
@@ -155,6 +213,8 @@ public class AudioManager : MonoBehaviour
         if (hookLoopSource.isPlaying) return;
 
         hookLoopSource.clip = hookShootSound;
+        hookLoopSource.volume = hookShootVolume;
+        hookLoopSource.loop = true;
         hookLoopSource.Play();
     }
 
@@ -164,14 +224,17 @@ public class AudioManager : MonoBehaviour
             hookLoopSource.Stop();
     }
 
-    private void PlaySFX(AudioClip clip)
+    private void PlaySFX(AudioClip clip, float volume)
     {
         if (clip == null || sfxSource == null) return;
-        sfxSource.PlayOneShot(clip);
+
+        sfxSource.PlayOneShot(clip, volume);
     }
 
-    public void PlayGameOver()
-    {
-        PlaySFX(gameOverSound);
-    }
+    public void PlayCustomSFX(AudioClip clip, float volume)
+{
+    if (clip == null || sfxSource == null) return;
+
+    sfxSource.PlayOneShot(clip, volume);
+}
 }

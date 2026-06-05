@@ -112,7 +112,10 @@ public class Hook : MonoBehaviour
             currentState = HookState.Extending;
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && currentState == HookState.Retracting && grabbedObject != null && GameManager.Instance.ExplosivesCount > 0)
+        if (Input.GetKeyDown(KeyCode.UpArrow) &&
+            currentState == HookState.Retracting &&
+            grabbedObject != null &&
+            GameManager.Instance.ExplosivesCount > 0)
         {
             UseExplosive();
         }
@@ -219,7 +222,10 @@ public class Hook : MonoBehaviour
             if (grabbedObject.TryGetComponent(out GrabableObject grabable))
             {
                 if (AudioManager.Instance != null)
-                    AudioManager.Instance.PlayCustomSFX(grabable.GrabSound);
+                    AudioManager.Instance.PlayCustomSFX(
+                        grabable.GrabSound,
+                        grabable.GrabSoundVolume
+                    );
             }
 
             if (grabbedObject.TryGetComponent(out PlanktonMovement plankton))
@@ -245,19 +251,24 @@ public class Hook : MonoBehaviour
 
         if (grabbedObject != null)
         {
-            if (AudioManager.Instance != null)
-                AudioManager.Instance.PlayItemDeliver();
-
             if (grabbedObject.TryGetComponent(out Garry garry))
             {
                 garry.RevealMystery(this);
             }
             else if (grabbedObject.TryGetComponent(out GrabableObject liveItem))
             {
-                string itemName = liveItem.gameObject.name;
-                if (liveItem.ItemData != null) itemName = liveItem.ItemData.ItemName;
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.PlayItemDeliver();
 
-                GameManager.Instance.ProcessItemDelivery(itemName, liveItem.DeliverValue(0f));
+                string itemName = liveItem.gameObject.name;
+
+                if (liveItem.ItemData != null)
+                    itemName = liveItem.ItemData.ItemName;
+
+                GameManager.Instance.ProcessItemDelivery(
+                    itemName,
+                    liveItem.DeliverValue(0f)
+                );
             }
 
             Destroy(grabbedObject);
