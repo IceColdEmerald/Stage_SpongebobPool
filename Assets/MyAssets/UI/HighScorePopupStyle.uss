@@ -1,0 +1,47 @@
+.name-popup
+{
+    position: absolute;
+
+    width: 450px;
+    height: 300px;
+
+    left: 50%;
+    top: 50%;
+
+    translate: -225px -150px;
+
+    background-color: rgba(15,25,35,0.95);
+
+    border-radius: 25px;
+
+    justify-content: center;
+    align-items: center;
+
+    display: none;
+}
+
+.popup-title
+{
+    font-size: 38px;
+    color: yellow;
+    unity-font-style: bold;
+}
+
+.popup-subtitle
+{
+    font-size: 22px;
+    margin-top: 15px;
+}
+
+.popup-name
+{
+    font-size: 64px;
+    margin-top: 30px;
+    letter-spacing: 20px;
+}
+
+.popup-help
+{
+    margin-top: 10px;
+    font-size: 18px;
+}

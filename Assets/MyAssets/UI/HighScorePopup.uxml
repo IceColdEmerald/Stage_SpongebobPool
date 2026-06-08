@@ -1,0 +1,10 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/MyAssets/UI/HighScorePopupStyle.uss?fileID=7433441132597879392&amp;guid=1f7d16567026be6488ff705dc8bb8d2a&amp;type=3#HighScorePopupStyle"/>
+    <ui:VisualElement name="NameInputPopup" class="name-popup" style="display: none; background-color: rgba(48, 41, 6, 0.6); -unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;);">
+        <ui:Label text="TOP 5 ENTRY !" class="popup-title"/>
+        <ui:Label text="ENTER YOUR NAME" class="popup-subtitle"/>
+        <ui:Label name="CurrentName" text="A A A" class="popup-name"/>
+        <ui:Label text="↑ ↓ CHANGE LETTER" class="popup-help"/>
+        <ui:Label text="SPACE / ENTER = NEXT" name="Label" class="popup-help"/>
+    </ui:VisualElement>
+</ui:UXML>

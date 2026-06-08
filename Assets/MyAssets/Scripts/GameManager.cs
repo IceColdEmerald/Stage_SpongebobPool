@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    [Header("HighScore Settings")]
 
     [Header("Economic & Level Settings")]
     [SerializeField] int money = 0;
@@ -213,8 +214,19 @@ public class GameManager : MonoBehaviour
         if (gameScreen != null) gameScreen.SetActive(false);
         if (gameOverScreen != null) gameOverScreen.SetActive(true);
 
-        yield return new WaitForSeconds(5f);
-        SceneManager.LoadScene("StartScreen");
+        yield return new WaitForSeconds(2f);
+
+        if (HighScoreManager.Instance != null && HighScoreManager.Instance.IsHighScore(money * level))
+        {
+            print("New High Score!");
+            gameOverScreen.SetActive(false);
+
+            HighScoreNameInput.Instance.Open(money * level);
+        }
+        else
+        {
+            SceneManager.LoadScene("HighScoreScene");
+        }
     }
 
     void UpdateVisualHUD()

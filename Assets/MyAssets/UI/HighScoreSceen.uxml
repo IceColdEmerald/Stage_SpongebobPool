@@ -9,38 +9,38 @@
             <ui:VisualElement name="scores" picking-mode="Ignore" style="top: -1%; left: 3%; -unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Examples%20&amp;%20Extras/Fonts/Oswald-Bold.ttf?fileID=12800000&amp;guid=c9f6d0e7bc8541498c9a4799ba184ede&amp;type=3#Oswald-Bold&quot;);">
                 <ui:VisualElement picking-mode="Ignore" class="score-row" style="-unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;);">
                     <ui:Label text="1." class="rank" style="-unity-font-style: normal;"/>
-                    <ui:Label text="SPONGEBOB" class="player-name gold" style="-unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;);"/>
+                    <ui:Label text="SPONGEBOB" name="Name1" class="player-name gold" style="-unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;);"/>
                     <ui:Label text="🪼" class="jelly"/>
-                    <ui:Label text="125,430" class="score-value"/>
+                    <ui:Label text="125,430" name="Score1" class="score-value"/>
                 </ui:VisualElement>
                 <ui:VisualElement picking-mode="Ignore" class="score-row" style="-unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;);">
                     <ui:Label text="2." class="rank"/>
-                    <ui:Label text="PATRICK" class="player-name pink"/>
+                    <ui:Label text="PATRICK" name="Name2" class="player-name pink"/>
                     <ui:Label text="🪼" class="jelly"/>
-                    <ui:Label text="98,760" class="score-value"/>
+                    <ui:Label text="98,760" name="Score2" class="score-value"/>
                 </ui:VisualElement>
                 <ui:VisualElement picking-mode="Ignore" class="score-row" style="-unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;);">
                     <ui:Label text="3." class="rank"/>
-                    <ui:Label text="SQUIDWARD" class="player-name blue"/>
+                    <ui:Label text="SQUIDWARD" name="Name3" class="player-name blue"/>
                     <ui:Label text="🪼" class="jelly"/>
-                    <ui:Label text="72,250" class="score-value"/>
+                    <ui:Label text="72,250" name="Score3" class="score-value"/>
                 </ui:VisualElement>
                 <ui:VisualElement picking-mode="Ignore" class="score-row" style="-unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;);">
                     <ui:Label text="4." class="rank"/>
-                    <ui:Label text="SANDY" class="player-name orange"/>
+                    <ui:Label text="SANDY" name="Name4" class="player-name orange"/>
                     <ui:Label text="🪼" class="jelly"/>
-                    <ui:Label text="55,310" class="score-value"/>
+                    <ui:Label text="55,310" name="Score4" class="score-value"/>
                 </ui:VisualElement>
                 <ui:VisualElement focusable="false" picking-mode="Ignore" class="score-row" style="-unity-font-definition: url(&quot;project://database/Assets/MyAssets/Fonts/Malam%20Poek.ttf?fileID=12800000&amp;guid=6bf6f68195512d448bfb45024f4c5418&amp;type=3#Malam Poek&quot;);">
                     <ui:Label text="5." class="rank"/>
-                    <ui:Label text="MR. KRABS" class="player-name red"/>
+                    <ui:Label text="MR. KRABS" name="Name5" class="player-name red"/>
                     <ui:Label text="🪼" class="jelly"/>
-                    <ui:Label text="38,900" class="score-value"/>
+                    <ui:Label text="38,900" name="Score5" class="score-value"/>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="best-score" picking-mode="Ignore" style="background-image: url(&quot;project://database/Assets/MyAssets/Sprites/BestScore.png?fileID=2800000&amp;guid=a53df97da32c8254ea1ad29b096befb7&amp;type=3#BestScore&quot;); background-color: rgba(255, 255, 255, 0); background-size: 100% 100%; width: 45%; height: 30%; bottom: -64px;">
                 <ui:Label text="YOUR BEST SCORE:" class="best-title" style="top: 10%; left: 3%;"/>
-                <ui:Label text="125,430" class="best-score-value" style="top: 5%; left: 3%;"/>
+                <ui:Label text="125,430" name="BestScoreValue" class="best-score-value" style="top: 5%; left: 3%;"/>
                 <ui:Label text="ARCADE" class="small-label" style="top: 6%;"/>
                 <ui:Label text="GOLD MINER" class="game-title"/>
                 <ui:Label text="BIKINI BOTTOM" class="small-label" style="bottom: 5%;"/>
