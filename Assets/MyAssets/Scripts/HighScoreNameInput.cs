@@ -16,6 +16,8 @@ public class HighScoreNameInput : MonoBehaviour
     {
         'A',
         'A',
+        'A',
+        'A',
         'A'
     };
 
@@ -47,6 +49,8 @@ public class HighScoreNameInput : MonoBehaviour
         letters[0] = 'A';
         letters[1] = 'A';
         letters[2] = 'A';
+        letters[3] = 'A';
+        letters[4] = 'A';
 
         UpdateName();
 
@@ -84,7 +88,7 @@ public class HighScoreNameInput : MonoBehaviour
         {
             currentIndex++;
 
-            if (currentIndex > 2)
+            if (currentIndex > 4)
             {
                 SaveScore();
             }
@@ -94,7 +98,7 @@ public class HighScoreNameInput : MonoBehaviour
     void UpdateName()
     {
         currentName.text =
-            $"{letters[0]} {letters[1]} {letters[2]}";
+            $"{letters[0]} {letters[1]} {letters[2]} {letters[3]} {letters[4]}";
     }
 
     void SaveScore()
