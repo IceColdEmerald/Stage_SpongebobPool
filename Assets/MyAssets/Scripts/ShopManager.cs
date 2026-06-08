@@ -1,7 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ShopManager : MonoBehaviour
 {
@@ -25,6 +27,10 @@ public class ShopManager : MonoBehaviour
     [SerializeField] TMP_Text textSeaUrchinPrice;
     [SerializeField] TMP_Text textSecretFormulaPrice;
 
+    [Header("Arcade Menu Settings")]
+    [SerializeField] float focusScaleModifier = 1.1f;
+    [SerializeField] float scaleSpeed = 12f;
+
     int pricePie, priceIceCream, priceGarryBowl, priceSeaUrchin, priceSecretFormula;
 
     int activeBackgroundIndex = 0;
@@ -39,6 +45,110 @@ public class ShopManager : MonoBehaviour
 
         SetupBackground();
         SetupInventoryButtons();
+
+        StartCoroutine(InitializeArcadeNavigationRoutine());
+    }
+
+    void Update()
+    {
+        HandleArcadeActionInput();
+        HandleArcadeSelectionEffects();
+    }
+
+    IEnumerator InitializeArcadeNavigationRoutine()
+    {
+        yield return new WaitForEndOfFrame();
+        RebuildArcadeNavigation();
+        FocusFirstAvailableButton();
+    }
+
+    void HandleArcadeActionInput()
+    {
+        if (isTransitioning) return;
+
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+        {
+            if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject != null)
+            {
+                Button targetedButton = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+                
+                if (targetedButton != null && targetedButton.interactable)
+                {
+                    targetedButton.onClick.Invoke();
+                }
+            }
+        }
+    }
+
+    void RebuildArcadeNavigation()
+    {
+        List<Button> availableButtons = new List<Button>();
+
+        if (btnPie != null && btnPie.gameObject.activeSelf) availableButtons.Add(btnPie);
+        if (btnIceCream != null && btnIceCream.gameObject.activeSelf) availableButtons.Add(btnIceCream);
+        if (btnGarryBowl != null && btnGarryBowl.gameObject.activeSelf) availableButtons.Add(btnGarryBowl);
+        if (btnSeaUrchin != null && btnSeaUrchin.gameObject.activeSelf) availableButtons.Add(btnSeaUrchin);
+        if (btnSecretFormula != null && btnSecretFormula.gameObject.activeSelf) availableButtons.Add(btnSecretFormula);
+
+        if (btnLeave != null && btnLeave.gameObject.activeSelf) availableButtons.Add(btnLeave);
+
+        if (availableButtons.Count == 0) return;
+
+        for (int i = 0; i < availableButtons.Count; i++)
+        {
+            Navigation nav = new Navigation { mode = Navigation.Mode.Explicit };
+
+            int nextIndex = (i + 1) % availableButtons.Count;
+            int prevIndex = (i - 1 + availableButtons.Count) % availableButtons.Count;
+
+            nav.selectOnRight = availableButtons[nextIndex];
+            nav.selectOnDown = availableButtons[nextIndex];
+            nav.selectOnLeft = availableButtons[prevIndex];
+            nav.selectOnUp = availableButtons[prevIndex];
+
+            availableButtons[i].navigation = nav;
+        }
+    }
+
+    void FocusFirstAvailableButton()
+    {
+        if (EventSystem.current == null) return;
+
+        Button[] orderedButtons = { btnPie, btnIceCream, btnGarryBowl, btnSeaUrchin, btnSecretFormula, btnLeave };
+
+        foreach (var btn in orderedButtons)
+        {
+            if (btn != null && btn.gameObject.activeSelf && btn.interactable)
+            {
+                EventSystem.current.SetSelectedGameObject(btn.gameObject);
+                return;
+            }
+        }
+    }
+
+    void HandleArcadeSelectionEffects()
+    {
+        if (EventSystem.current == null) return;
+
+        GameObject currentSelected = EventSystem.current.currentSelectedGameObject;
+
+        if (currentSelected == null)
+        {
+            FocusFirstAvailableButton();
+            return;
+        }
+
+        Button[] allButtons = { btnPie, btnIceCream, btnGarryBowl, btnSeaUrchin, btnSecretFormula, btnLeave };
+
+        foreach (var btn in allButtons)
+        {
+            if (btn == null) continue;
+
+            bool isHighlighted = currentSelected == btn.gameObject;
+            Vector3 targetScale = isHighlighted ? Vector3.one * focusScaleModifier : Vector3.one;
+
+            btn.transform.localScale = Vector3.Lerp(btn.transform.localScale, targetScale, Time.deltaTime * scaleSpeed);
+        }
     }
 
     void SetupBackground()
@@ -136,6 +246,9 @@ public class ShopManager : MonoBehaviour
             ApplyItemEffect(itemID);
 
             clickedButton.gameObject.SetActive(false);
+
+            RebuildArcadeNavigation();
+            FocusFirstAvailableButton();
         }
         else
         {

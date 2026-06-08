@@ -3451,7 +3451,6 @@ MonoBehaviour:
   hasGarryBowl: 0
   hasSeaUrchin: 0
   hasSecretFormula: 0
-  rockBookBonus: 0
   gameScreen: {fileID: 62638818}
   gameOverScreen: {fileID: 671381848}
   shopScreen: {fileID: 1077419602}
@@ -4474,6 +4473,8 @@ MonoBehaviour:
   textGarryBowlPrice: {fileID: 1871268149}
   textSeaUrchinPrice: {fileID: 1228376412}
   textSecretFormulaPrice: {fileID: 486752005}
+  focusScaleModifier: 1.1
+  scaleSpeed: 12
 --- !u!4 &1317154199
 Transform:
   m_ObjectHideFlags: 0

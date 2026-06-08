@@ -18,6 +18,8 @@ public class StartScreenController : MonoBehaviour
 
     private bool isLoading;
 
+    int currentSelection = 0;
+
     private void Awake()
     {
         if (uiDocument == null)
@@ -37,6 +39,59 @@ public class StartScreenController : MonoBehaviour
     {
         if (AudioManager.Instance != null)
             AudioManager.Instance.PlayStartMenuMusic();
+
+        UpdateArcadeFocus();
+    }
+
+    void Update()
+    {
+        if (isLoading) return;
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            currentSelection = (currentSelection == 0) ? 1 : 0;
+            UpdateArcadeFocus();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+        {
+            ExecuteSelection();
+        }
+    }
+
+    void UpdateArcadeFocus()
+    {
+        if (startButton != null)
+        {
+            startButton.style.scale = new StyleScale(StyleKeyword.Null);
+        }
+        if (highScoresButton != null)
+        {
+            highScoresButton.style.scale = new StyleScale(StyleKeyword.Null);
+        }
+
+        if (currentSelection == 0 && startButton != null)
+        {
+            startButton.Focus();
+            startButton.style.scale = new StyleScale(new Scale(new Vector3(1.1f, 1.1f, 1f)));
+        }
+        else if (currentSelection == 1 && highScoresButton != null)
+        {
+            highScoresButton.Focus();
+            highScoresButton.style.scale = new StyleScale(new Scale(new Vector3(1.1f, 1.1f, 1f)));
+        }
+    }
+
+    void ExecuteSelection()
+    {
+        if (currentSelection == 0)
+        {
+            OnStartClicked();
+        }
+        else if (currentSelection == 1)
+        {
+            OnHighScoresClicked();
+        }
     }
 
     private void OnDestroy()

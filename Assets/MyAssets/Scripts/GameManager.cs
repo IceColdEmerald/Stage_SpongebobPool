@@ -31,9 +31,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool hasSeaUrchin = false;
     [SerializeField] bool hasSecretFormula = false;
 
-    [Header("Progression Multipliers")]
-    [SerializeField] float rockBookBonus = 0f;
-
     [Header("Canvas Screen Panels")]
     [SerializeField] GameObject gameScreen;
     [SerializeField] GameObject gameOverScreen;
@@ -227,6 +224,8 @@ public class GameManager : MonoBehaviour
         if (levelText != null) levelText.text = $"{level}";
         if (timeText != null) timeText.text = Mathf.CeilToInt(timeRemaining).ToString();
         if (storeMoneyText != null) storeMoneyText.text = $"{money}";
+
+        FindFirstObjectByType<ExplosivesUI>(FindObjectsInactive.Include)?.UpdateDisplay();
     }
 
     public void SpendMoney(int amount)
@@ -257,10 +256,18 @@ public class GameManager : MonoBehaviour
         if (explosivesCount < 3)
         {
             explosivesCount++;
-            FindFirstObjectByType<ExplosivesUI>()?.UpdateDisplay();
+            FindFirstObjectByType<ExplosivesUI>(FindObjectsInactive.Include)?.UpdateDisplay();
         }
     }
-    public void UseExplosivePie() => explosivesCount--;
+    public void UseExplosivePie()
+    {
+        if (explosivesCount > 0)
+        {
+            explosivesCount--;
+            FindFirstObjectByType<ExplosivesUI>(FindObjectsInactive.Include)?.UpdateDisplay();
+        }
+    }
+    
     public void SetStrengthBuff(bool active) => hasIceCream = active;
     public void SetGarryBowlBuff(bool active) => hasGarryBowl = active;
     public void SetSeaUrchinBuff(bool active) => hasSeaUrchin = active;

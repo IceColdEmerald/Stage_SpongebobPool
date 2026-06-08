@@ -13,10 +13,10 @@ public class HighScoreScreenController : MonoBehaviour
     private bool isLoading;
 
     private void Start()
-{
-    if (AudioManager.Instance != null)
-        AudioManager.Instance.PlayShopMusic();
-}
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayShopMusic();
+    }
 
     private void Awake()
     {
@@ -29,6 +29,14 @@ public class HighScoreScreenController : MonoBehaviour
             root.Q<VisualElement>("BubbleTransition");
 
         playAgainButton.clicked += OnPlayAgainClicked;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+        {
+            OnPlayAgainClicked();
+        }
     }
 
     private void OnDestroy()
